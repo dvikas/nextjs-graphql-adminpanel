@@ -44,5 +44,7 @@ module.exports = {
         WEB_APP_GOOGLE_API_KEY: process.env.WEB_APP_GOOGLE_API_KEY,
         WEB_APP_MARKETING_SITE: process.env.WEB_APP_MARKETING_SITE,
         WEB_APP_SENTRY_DSN: process.env.WEB_APP_SENTRY_DSN,
+        IMAGE_UPLOAD_URL: process.env.IMAGE_UPLOAD_URL,
+        IMAGE_UPLOAD_PRESET: process.env.IMAGE_UPLOAD_PRESET,
     },
 };
