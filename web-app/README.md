@@ -24,7 +24,7 @@ Add the following line to your `/etc/hosts` file in order to alias your localhos
 Local environment variables are configured in the `.env` file. Variables set for the `dev` and `prod` environment are configured using the NOW CLI in the `now.json` and `now.prod.json` file. Environment variables are injected into the Next.js app through the `nex.config.js` file.
 
 ### Starting the server
-
+(Don't delete `yarn.lock` file. Install with `yarn`)
 ```bash
 yarn # Install all dependencies
 yarn dev # Starts the development server at http://local.app.nextgraphqladmin.com:3000
