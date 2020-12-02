@@ -13,22 +13,31 @@ The following must be installed locally in order to run the api and it's backing
 
 ### Host file
 
-Add the following line to your `/etc/hosts` file in order to alias your localhost to local.app.nextgraphqladmin.com:
+Add the following line to your `/etc/hosts` file in order to alias your localhost to *local.app.nextgraphqladmin.com*
 
 ```text
 127.0.0.1 local.app.nextgraphqladmin.com
 ```
+### Install Instructions
+
+Must use **yarn** in order to use *yarn.lock*. (Do not delete `yarn.lock`)
+
+* Open MYSQL and Create Database `next_graphql_admin`
+* Open Terminal in `api` Directory and use following commands
+* `yarn`
+* `npx prisma migrate save --experimental`
+* `npx prisma migrate up --experimental` (It will create DB Tables)
+* `yarn seed` (it will create test user **admin@example.com / admin** in DB user table)
 
 ### Environment variables
 
-Local environment variables are set in the `.env` file.
+Copy `.env.example` and create `.env` file. Local environment variables are set in the `.env` file.
 
 ### Starting the server
 
 Run the following commands to get started.
 
 ```bash
-yarn # Install all dependencies
 yarn dev # Starts the local api server accessible at http://local.api.nextgraphqladmin.com:4000
 ```
 
