@@ -1,0 +1,7 @@
+projects:
+  Web App:
+    schemaPath:
+      - ../backend/src/generated/schema.graphql
+    extensions:
+      endpoints:
+        local: 'http://local.api.nextgraphqladmin.com:4000'

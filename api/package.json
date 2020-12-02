@@ -1,0 +1,72 @@
+{
+    "name": "nextgraphqladmin-backend",
+    "description": "Back-end for Admin",
+    "version": "0.0.0",
+    "private": true,
+    "scripts": {
+        "postinstall": "yarn generate",
+        "start": "ts-node --files src/index.ts",
+        "dev": "ts-node-dev --no-notify --respawn --transpileOnly ./src/",
+        "generate": "yarn generate:prisma && yarn generate:nexus",
+        "generate:prisma": "prisma generate",
+        "generate:nexus": "ts-node --transpile-only src/schema",
+        "stripe": "stripe listen --forward-to local.api.nextgraphqladmin.com:4000/stripe",
+        "seed": "ts-node ./seeds"
+    },
+    "dependencies": {
+        "@nexus/schema": "^0.13.1",
+        "@prisma/client": "^2.0.0-beta.1",
+        "amplitude": "^4.0.1",
+        "aws-sdk": "^2.649.0",
+        "bcrypt": "^3.0.7",
+        "body-parser": "^1.19.0",
+        "cookie-parser": "^1.4.4",
+        "cuid": "^2.1.8",
+        "date-fns": "^2.9.0",
+        "dotenv": "^8.2.0",
+        "dotenv-flow": "^3.1.0",
+        "express-session": "^1.17.0",
+        "formidable": "^1.2.1",
+        "graphql": "^14.5.8",
+        "graphql-upload": "^8.1.0",
+        "graphql-yoga": "^1.18.3",
+        "jsonwebtoken": "^8.5.1",
+        "nexus": "^0.12.0",
+        "nexus-prisma": "^0.12.0",
+        "node-fetch": "^2.6.0",
+        "nodemailer": "^6.4.14",
+        "passport": "^0.4.0",
+        "passport-google-oauth20": "^2.0.0",
+        "stripe": "^7.15.0",
+        "ts-node": "^8.8.2",
+        "uuid": "^3.3.3"
+    },
+    "devDependencies": {
+        "@prisma/cli": "2.0.0-beta.1",
+        "@types/bcrypt": "^3.0.0",
+        "@types/cookie-parser": "^1.4.2",
+        "@types/express-session": "^1.17.0",
+        "@types/faker": "^4.1.9",
+        "@types/formidable": "^1.0.31",
+        "@types/graphql-upload": "^8.0.3",
+        "@types/jsonwebtoken": "^8.3.5",
+        "@types/node": "^12.12.8",
+        "@types/passport": "^1.0.1",
+        "@types/passport-google-oauth20": "^2.0.3",
+        "@types/stripe": "^7.13.19",
+        "@types/uuid": "^3.4.6",
+        "faker": "^4.1.0",
+        "knex": "^0.20.10",
+        "mysql": "^2.18.1",
+        "now": "^16.7.0",
+        "ts-node-dev": "^1.0.0-pre.44",
+        "typescript": "3.8.3"
+    },
+    "engines": {
+        "node": "12",
+        "yarn": "^1.16.0"
+    },
+    "resolutions": {
+        "graphql": "^14.5.8"
+    }
+}

@@ -1,0 +1,122 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("API_DATABASE_URL")
+}
+
+model Card {
+  brand                 String
+  expMonth              Int
+  expYear               Int
+  id                    String @id @default(cuid())
+  last4Digits           String
+  stripePaymentMethodId String
+}
+
+model GoogleMapsLocation {
+  googlePlacesId String
+  id             String        @id @default(cuid())
+  name           String
+  OrderDetail    OrderDetail[]
+}
+
+model OrderDetail {
+
+  id                   String              @id @default(cuid())
+  googleMapsLocationId String?
+  User                 User?               @relation(fields: [userId], references: [id])
+  userId               String?
+  GoogleMapsLocation   GoogleMapsLocation? @relation(fields: [googleMapsLocationId], references: [id])
+
+}
+
+model Product {
+  category      String
+  createdAt     DateTime       @default(now())
+  description   String
+  discount      Int
+  id            String         @id @default(cuid())
+  name          String
+  price         Int
+  salePrice     Int
+  sku           String         @unique
+  unit          String
+  updatedAt     DateTime       @default(now())
+  user          String
+  Category      Category       @relation(fields: [category], references: [id])
+  User          User           @relation(fields: [user], references: [id])
+  CartItem      CartItem[]
+  ProductImages ProductImage[]
+
+  @@index([category], name: "category")
+  @@index([user], name: "user")
+}
+
+model ProductImage {
+  createdAt DateTime @default(now())
+  id        String   @id @default(cuid())
+  image     String
+  productId String
+  updatedAt DateTime @default(now())
+  Product   Product  @relation(fields: [productId], references: [id])
+
+  @@index([productId], name: "ProductImage_ibfk_1")
+}
+
+enum User_role {
+  USER
+  ADMIN
+  MANAGER
+}
+
+enum User_status {
+  INACTIVE
+  ACTIVE
+  BLOCKED
+}
+
+model User {
+  name                   String
+  email                  String        @unique
+  emailConfirmationToken String?
+  googleId               String?       @unique
+  hasCompletedOnboarding Boolean       @default(false)
+  hasVerifiedEmail       Boolean?
+  id                     String        @id @default(cuid())
+  password               String?
+  resetToken             String?
+  resetTokenExpiry       Float?
+  role                   User_role     @default(USER)
+  status                 User_status   @default(ACTIVE)
+  billing                String?
+  CartItem               CartItem[]
+  Product                Product[]
+  OrderDetail            OrderDetail[]
+}
+
+//////////////////////////////////////////////////////
+model CartItem {
+  id       String @id
+  item     String
+  quantity Int
+  user     String
+  User     User   @relation(fields: [user], references: [id])
+
+  Product   Product? @relation(fields: [productId], references: [id])
+  productId String?
+  @@index([item], name: "item")
+  @@index([user], name: "user")
+}
+
+model Category {
+  createdAt DateTime  @default(now())
+  id        String    @id @default(cuid())
+  name      String
+  parent    String
+  slug      String    @unique
+  updatedAt DateTime  @default(now())
+  Product   Product[]
+}
