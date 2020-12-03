@@ -92,7 +92,11 @@ const useStyles = makeStyles(() => ({
   }
 }));
 
-const LatestOrders = ({ className, ...rest }) => {
+type Props = {
+  className: string
+};
+
+const LatestOrders: React.FC<Props> = ({ className, ...rest }) => {
   const classes = useStyles();
   const [orders] = useState(data);
 
@@ -176,10 +180,6 @@ const LatestOrders = ({ className, ...rest }) => {
       </Box>
     </Card>
   );
-};
-
-LatestOrders.propTypes = {
-  className: PropTypes.string
 };
 
 export default LatestOrders;

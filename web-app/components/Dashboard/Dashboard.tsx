@@ -16,7 +16,7 @@ import TrafficByDevice from './TrafficByDevice';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    backgroundColor: theme.palette.background.dark,
+    backgroundColor: theme.palette.background.default,
     minHeight: '100%',
     paddingBottom: theme.spacing(3),
     paddingTop: theme.spacing(3)
@@ -40,7 +40,7 @@ const Dashboard = () => {
           xl={3}
           xs={12}
         >
-          <Budget />
+          <Budget className="hello" />
         </Grid>
         <Grid
           item
@@ -49,7 +49,7 @@ const Dashboard = () => {
           xl={3}
           xs={12}
         >
-          <TotalCustomers />
+          <TotalCustomers className="hello" />
         </Grid>
         <Grid
           item
@@ -58,7 +58,7 @@ const Dashboard = () => {
           xl={3}
           xs={12}
         >
-          <TasksProgress />
+          <TasksProgress className="hello" />
         </Grid>
         <Grid
           item
@@ -67,7 +67,7 @@ const Dashboard = () => {
           xl={3}
           xs={12}
         >
-          <TotalProfit />
+          <TotalProfit className="hello" />
         </Grid>
         <Grid
           item
@@ -76,7 +76,7 @@ const Dashboard = () => {
           xl={9}
           xs={12}
         >
-          <Sales />
+          <Sales className="hello" />
         </Grid>
         <Grid
           item
@@ -85,7 +85,7 @@ const Dashboard = () => {
           xl={3}
           xs={12}
         >
-          <TrafficByDevice />
+          <TrafficByDevice className="hello" />
         </Grid>
         <Grid
           item
@@ -94,7 +94,7 @@ const Dashboard = () => {
           xl={3}
           xs={12}
         >
-          <LatestProducts />
+          <LatestProducts className="hello" />
         </Grid>
         <Grid
           item
@@ -103,7 +103,7 @@ const Dashboard = () => {
           xl={9}
           xs={12}
         >
-          <LatestOrders />
+          <LatestOrders className="hello" />
         </Grid>
       </Grid>
     </Container>

@@ -1,6 +1,6 @@
 import React from 'react';
 import clsx from 'clsx';
-import PropTypes from 'prop-types';
+
 import {
   Avatar,
   Box,
@@ -32,7 +32,12 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const TotalCustomers = ({ className, ...rest }) => {
+type Props = {
+  className: string
+};
+
+const TotalCustomers: React.FC<Props> = ({ className, ...rest }) => {
+
   const classes = useStyles();
 
   return (
@@ -89,10 +94,6 @@ const TotalCustomers = ({ className, ...rest }) => {
       </CardContent>
     </Card>
   );
-};
-
-TotalCustomers.propTypes = {
-  className: PropTypes.string
 };
 
 export default TotalCustomers;

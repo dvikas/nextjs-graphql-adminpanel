@@ -23,7 +23,11 @@ const useStyles = makeStyles(() => ({
   }
 }));
 
-const TotalProfit = ({ className, ...rest }) => {
+type Props = {
+  className: string
+};
+
+const TotalProfit: React.FC<Props> = ({ className, ...rest }) => {
   const classes = useStyles();
 
   return (
@@ -61,10 +65,6 @@ const TotalProfit = ({ className, ...rest }) => {
       </CardContent>
     </Card>
   );
-};
-
-TotalProfit.propTypes = {
-  className: PropTypes.string
 };
 
 export default TotalProfit;

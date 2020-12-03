@@ -62,7 +62,11 @@ const useStyles = makeStyles(({
   }
 }));
 
-const LatestProducts = ({ className, ...rest }) => {
+type Props = {
+  className: string
+};
+
+const LatestProducts: React.FC<Props> = ({ className, ...rest }) => {
   const classes = useStyles();
   const [products] = useState(data);
 
@@ -119,10 +123,6 @@ const LatestProducts = ({ className, ...rest }) => {
       </Box>
     </Card>
   );
-};
-
-LatestProducts.propTypes = {
-  className: PropTypes.string
 };
 
 export default LatestProducts;

@@ -15,9 +15,6 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
-import AccountCircle from '@material-ui/icons/AccountCircle';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
@@ -34,7 +31,7 @@ import Grid from '@material-ui/core/Grid';
 import Badge from '@material-ui/core/Badge';
 
 import HeaderUserbox from './HeaderUserBox';
-import { toUpperCase } from '*.jpg';
+
 
 const drawerWidth = 240;
 var classNames = require('classnames');

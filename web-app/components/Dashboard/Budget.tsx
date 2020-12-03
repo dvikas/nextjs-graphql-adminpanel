@@ -6,6 +6,7 @@ import {
   Box,
   Card,
   CardContent,
+  CardActions,
   Grid,
   Typography,
   colors,
@@ -32,7 +33,12 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const Budget = ({ className, ...rest }) => {
+type Props = {
+  className: string
+};
+
+const Budget: React.FC<Props> = ({ className, ...rest }) => {
+
   const classes = useStyles();
 
   return (
@@ -72,27 +78,30 @@ const Budget = ({ className, ...rest }) => {
           display="flex"
           alignItems="center"
         >
-          <ArrowDownwardIcon className={classes.differenceIcon} />
-          <Typography
-            className={classes.differenceValue}
-            variant="body2"
-          >
-            12%
-          </Typography>
-          <Typography
-            color="textSecondary"
-            variant="caption"
-          >
-            Since last month
-          </Typography>
+
         </Box>
       </CardContent>
+      <CardActions>
+        <ArrowDownwardIcon className={classes.differenceIcon} />
+        <Typography
+          className={classes.differenceValue}
+          variant="body2"
+        >
+          122%
+          </Typography>
+        <Typography
+          color="textSecondary"
+          variant="caption"
+        >
+          Since last month
+          </Typography>
+      </CardActions>
     </Card>
   );
 };
 
-Budget.propTypes = {
-  className: PropTypes.string
-};
+// Budget.propTypes = {
+//   className: PropTypes.string
+// };
 
 export default Budget;

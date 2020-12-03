@@ -20,7 +20,11 @@ const useStyles = makeStyles(() => ({
   root: {}
 }));
 
-const Sales = ({ className, ...rest }) => {
+type Props = {
+  className: string
+};
+
+const Sales: React.FC<Props> = ({ className, ...rest }) => {
   const classes = useStyles();
   const theme = useTheme();
 
@@ -118,10 +122,10 @@ const Sales = ({ className, ...rest }) => {
           height={400}
           position="relative"
         >
-          <Bar
+          {/* <Bar
             data={data}
             options={options}
-          />
+          /> */}
         </Box>
       </CardContent>
       <Divider />
@@ -141,10 +145,6 @@ const Sales = ({ className, ...rest }) => {
       </Box>
     </Card>
   );
-};
-
-Sales.propTypes = {
-  className: PropTypes.string
 };
 
 export default Sales;

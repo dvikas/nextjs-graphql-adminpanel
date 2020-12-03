@@ -14,7 +14,7 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import Icon from "@material-ui/core/Icon";
-import { IS_LEFT_DRAWER_OPEN } from '../../graphql/queries';
+
 import { drawerWidth, miniDrawerWidth } from './Layout';
 
 import {

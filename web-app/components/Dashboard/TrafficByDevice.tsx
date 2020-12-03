@@ -23,7 +23,11 @@ const useStyles = makeStyles(() => ({
   }
 }));
 
-const TrafficByDevice = ({ className, ...rest }) => {
+type Props = {
+  className: string
+};
+
+const TrafficByDevice: React.FC<Props> = ({ className, ...rest }) => {
   const classes = useStyles();
   const theme = useTheme();
 
@@ -99,10 +103,10 @@ const TrafficByDevice = ({ className, ...rest }) => {
           height={300}
           position="relative"
         >
-          <Doughnut
+          {/* <Doughnut
             data={data}
             options={options}
-          />
+          /> */}
         </Box>
         <Box
           display="flex"
@@ -115,35 +119,31 @@ const TrafficByDevice = ({ className, ...rest }) => {
             title,
             value
           }) => (
-            <Box
-              key={title}
-              p={1}
-              textAlign="center"
-            >
-              <Icon color="action" />
-              <Typography
-                color="textPrimary"
-                variant="body1"
+              <Box
+                key={title}
+                p={1}
+                textAlign="center"
               >
-                {title}
-              </Typography>
-              <Typography
-                style={{ color }}
-                variant="h2"
-              >
-                {value}
+                <Icon color="action" />
+                <Typography
+                  color="textPrimary"
+                  variant="body1"
+                >
+                  {title}
+                </Typography>
+                <Typography
+                  style={{ color }}
+                  variant="h2"
+                >
+                  {value}
                 %
               </Typography>
-            </Box>
-          ))}
+              </Box>
+            ))}
         </Box>
       </CardContent>
     </Card>
   );
-};
-
-TrafficByDevice.propTypes = {
-  className: PropTypes.string
 };
 
 export default TrafficByDevice;

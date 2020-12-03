@@ -25,7 +25,11 @@ const useStyles = makeStyles(() => ({
   }
 }));
 
-const TasksProgress = ({ className, ...rest }) => {
+type Props = {
+  className: string
+};
+
+const TasksProgress: React.FC<Props> = ({ className, ...rest }) => {
   const classes = useStyles();
 
   return (
@@ -69,10 +73,6 @@ const TasksProgress = ({ className, ...rest }) => {
       </CardContent>
     </Card>
   );
-};
-
-TasksProgress.propTypes = {
-  className: PropTypes.string
 };
 
 export default TasksProgress;
