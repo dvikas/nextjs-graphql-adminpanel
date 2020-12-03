@@ -48,7 +48,7 @@ const TrafficByDevice: React.FC<Props> = ({ className, ...rest }) => {
     labels: ['Desktop', 'Tablet', 'Mobile']
   };
 
-  const options = {
+  const options: any = {
     animation: false,
     cutoutPercentage: 80,
     layout: { padding: 0 },
@@ -103,10 +103,10 @@ const TrafficByDevice: React.FC<Props> = ({ className, ...rest }) => {
           height={300}
           position="relative"
         >
-          {/* <Doughnut
+          <Doughnut
             data={data}
             options={options}
-          /> */}
+          />
         </Box>
         <Box
           display="flex"

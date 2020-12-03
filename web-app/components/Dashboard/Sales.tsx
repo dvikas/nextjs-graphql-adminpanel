@@ -1,7 +1,7 @@
 import React from 'react';
 import clsx from 'clsx';
-import PropTypes from 'prop-types';
 import { Bar } from 'react-chartjs-2';
+
 import {
   Box,
   Button,
@@ -44,7 +44,7 @@ const Sales: React.FC<Props> = ({ className, ...rest }) => {
     labels: ['1 Aug', '2 Aug', '3 Aug', '4 Aug', '5 Aug', '6 Aug']
   };
 
-  const options = {
+  const options: any = {
     animation: false,
     cornerRadius: 20,
     layout: { padding: 0 },
@@ -122,10 +122,10 @@ const Sales: React.FC<Props> = ({ className, ...rest }) => {
           height={400}
           position="relative"
         >
-          {/* <Bar
+          <Bar
             data={data}
             options={options}
-          /> */}
+          />
         </Box>
       </CardContent>
       <Divider />

@@ -3030,12 +3030,10 @@
   dependencies:
     "@babel/types" "^7.3.0"
 
-"@types/chart.js@^2.9.18":
-  version "2.9.18"
-  resolved "https://registry.yarnpkg.com/@types/chart.js/-/chart.js-2.9.18.tgz#169e3c939facbfc7883223c2ebd5b0f88ab0a3f3"
-  integrity sha512-D7oaYQqYGdfoa1Wv9doxQJ9Sv/W7jfbiXMT/wVRiM0AsPJsHWLRn7U46xhDkPRGmLCpQGlN2oZYBIwEpMMleog==
-  dependencies:
-    moment "^2.10.2"
+"@types/chartjs@^0.0.31":
+  version "0.0.31"
+  resolved "https://registry.yarnpkg.com/@types/chartjs/-/chartjs-0.0.31.tgz#b16a687eaad3ea3e5cd3e961aee5a28e47b57949"
+  integrity sha512-eF1AgrIO0qP9KJYwM2dTKL2pczTjiLa0hfmZdQfKiqFq5WIvFTKPn1gkgADitF5sT4byEyq4EFdMVvuPIk6zeQ==
 
 "@types/color-name@^1.1.1":
   version "1.1.1"
