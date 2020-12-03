@@ -1,13 +1,11 @@
+import Dashboard from '../components/Dashboard/Dashboard';
+
 type Props = {};
 
 const Home: React.FC<Props> = () => {
 
     return (
-        <>
-            <div>
-                Dashboard
-            </div>
-        </>
+        <Dashboard />
     );
 };
 
