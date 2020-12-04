@@ -1,7 +1,6 @@
-import React, { Fragment, useContext } from 'react';
+import React, { Fragment } from 'react';
 import clsx from 'clsx';
 import { useMutation, useApolloClient } from '@apollo/react-hooks';
-
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSignOutAlt, faAngleDown } from "@fortawesome/free-solid-svg-icons";
 import {
@@ -13,14 +12,13 @@ import {
   ListItem,
   Divider
 } from '@material-ui/core';
-import { fade, makeStyles, Theme, createStyles } from '@material-ui/core/styles';
+import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 
 import Typography from '@material-ui/core/Typography';
 import { currentUserQuery } from '../../graphql/queries/index';
 import { useQuery } from '@apollo/react-hooks';
-// import { AuthContext } from '../../../context/auth';
 import { logoutMutation } from '../../graphql/mutations';
 import { LogoutMutation } from '../../graphql/generated/LogoutMutation';
 
@@ -92,7 +90,7 @@ export default function HeaderUserbox() {
         className="">
         <ListItem alignItems="flex-start" style={{ padding: '0 10px' }}>
           <ListItemAvatar>
-            <Avatar alt="Travis Howard" src="/images/user.jpg" />
+            <Avatar alt="Vikas Dwivedi" src="/images/user.jpg" />
           </ListItemAvatar>
           <ListItemText
             style={{ textTransform: 'capitalize' }}
@@ -110,14 +108,6 @@ export default function HeaderUserbox() {
             }
           />
         </ListItem>
-        {/* <Box>
-          <Avatar sizes="44" alt="Emma Taylor" src="/images/user.jpg" />
-        </Box>
-        <div className="d-xl-block pl-3">
-          <div className="font-weight-bold pt-2 line-height-1">Vikas</div>
-          <span className="text-white-50">Super Admin</span>
-        </div> */}
-
         <span className="pl-1 pl-xl-3">
           <FontAwesomeIcon icon={faAngleDown} className="opacity-5" />
         </span>

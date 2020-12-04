@@ -1,12 +1,8 @@
-/*eslint-disable*/
 import React from "react";
-// import classNames from "classnames";
 import gql from 'graphql-tag';
 import PropTypes from "prop-types";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { ApolloProvider, useQuery } from '@apollo/react-hooks';
-
 import { makeStyles, Theme as AugmentedTheme, createStyles } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
 import Hidden from "@material-ui/core/Hidden";
@@ -17,42 +13,14 @@ import Icon from "@material-ui/core/Icon";
 
 import { drawerWidth, miniDrawerWidth } from './Layout';
 
-// import {
-//   transition,
-//   boxShadow,
-//   defaultFont,
-//   primaryColor,
-//   primaryBoxShadow,
-//   infoColor,
-//   successColor,
-//   warningColor,
-//   dangerColor,
-//   whiteColor,
-//   grayColor,
-//   blackColor,
-//   hexToRgb,
-//   blueColor
-// } from "../../assets/jss/nextjs-material-dashboard.js";
-
-// import sidebarStyle from "../../assets/jss/nextjs-material-dashboard/components/sidebarStyle.js";
 var classNames = require('classnames');
-const lightGrey = "#eeeff8";
-
 
 const useStyles = makeStyles((theme: AugmentedTheme) =>
   createStyles({
     drawerOpen: {
-      width: `${drawerWidth}px`,
-      // transition: theme.transitions.create('width', {
-      //   easing: theme.transitions.easing.sharp,
-      //   duration: theme.transitions.duration.enteringScreen,
-      // }),
+      width: `${drawerWidth}px`
     },
     drawerClose: {
-      // transition: theme.transitions.create('width', {
-      //   easing: theme.transitions.easing.sharp,
-      //   duration: theme.transitions.duration.leavingScreen,
-      // }),
       width: `${miniDrawerWidth}px`,
     },
     drawerPaper: {
@@ -60,27 +28,7 @@ const useStyles = makeStyles((theme: AugmentedTheme) =>
       top: "0",
       bottom: "0",
       left: "0",
-      zIndex: 1,
-      // [theme.breakpoints.up("md")]: {
-      //   position: "fixed",
-      //   height: "100%",
-      // },
-      // [theme.breakpoints.down("sm")]: {
-      //   position: "fixed",
-      //   display: "block",
-      //   top: "0",
-      //   height: "100vh",
-      //   right: "0",
-      //   left: "auto",
-      //   zIndex: "1032",
-      //   visibility: "visible",
-      //   overflowY: "visible",
-      //   borderTop: "none",
-      //   textAlign: "left",
-      //   paddingRight: "0px",
-      //   paddingLeft: "0",
-      //   ...transition,
-      // },
+      zIndex: 1
     },
     logo: {
       position: "relative",
@@ -107,17 +55,13 @@ const useStyles = makeStyles((theme: AugmentedTheme) =>
       fontWeight: 400,
       lineHeight: "30px",
       textDecoration: "none",
-      backgroundColor: "transparent",
-      "&,&:hover": {
-        // color: "red",
-      },
+      backgroundColor: "transparent"
     },
 
     logoImage: {
       width: "30px",
       display: "inline-block",
       maxHeight: "30px",
-      // marginLeft: "10px",
       marginRight: "15px",
     },
     img: {
@@ -153,7 +97,6 @@ const useStyles = makeStyles((theme: AugmentedTheme) =>
       position: "relative",
       padding: "10px 15px",
       backgroundColor: "transparent",
-      // ...defaultFont,
     },
     itemIcon: {
       width: "24px",
@@ -171,7 +114,6 @@ const useStyles = makeStyles((theme: AugmentedTheme) =>
       float: "right",
     },
     itemText: {
-      // ...defaultFont,
       margin: "0",
       lineHeight: "30px",
       fontSize: "14px",
@@ -184,9 +126,14 @@ const useStyles = makeStyles((theme: AugmentedTheme) =>
       position: "relative",
       height: "calc(100vh - 75px)",
       overflow: "auto",
-      // width: "260px",
       zIndex: 4,
       overflowScrolling: "touch",
+    },
+    whiteFont: {
+      color: '#fff'
+    },
+    whiteLink: {
+      color: '#fff'
     }
   }),
 );
@@ -208,7 +155,7 @@ export default function Sidebar(props: any) {
 
         var listItemClasses;
         listItemClasses = classNames({
-          [" " + classes[color]]: activeRoute(prop.path),
+          ["whiteLink"]: activeRoute(prop.path),
         });
         const whiteFontClasses = classNames({
           [" " + classes.whiteFont]:
@@ -278,13 +225,3 @@ export default function Sidebar(props: any) {
     </div>
   );
 }
-
-Sidebar.propTypes = {
-  rtlActive: PropTypes.bool,
-  bgColor: PropTypes.string,
-  logo: PropTypes.string,
-  image: PropTypes.string,
-  logoText: PropTypes.string,
-  routes: PropTypes.arrayOf(PropTypes.object),
-  open: PropTypes.bool,
-};
