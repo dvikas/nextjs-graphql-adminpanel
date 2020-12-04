@@ -1,7 +1,7 @@
 import React from 'react';
-import { useApolloClient, useQuery, useMutation } from '@apollo/react-hooks';
+import { useApolloClient } from '@apollo/react-hooks';
 import ApolloClient from 'apollo-client';
-import { fade, makeStyles, Theme, createStyles } from '@material-ui/core/styles';
+import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
@@ -21,40 +21,16 @@ import HeaderUserbox from './HeaderUserBox';
 import PropTypes from "prop-types";
 import { drawerWidth, miniDrawerWidth } from './Layout';
 
-// import { Query, Mutation } from "react-apollo";
-// import { LEFT_DRAWER_STATE_QUERY } from '../../../query';
-// import { TOGGLE_LEFT_DRAWER_MUTATION } from '../../../mutation';
-// import { adopt } from "react-adopt";
 var classNames = require('classnames');
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     drawerOpen: {
-      width: `calc(100% - ${drawerWidth}px)`,
-      // transition: theme.transitions.create('width', {
-      //   easing: theme.transitions.easing.sharp,
-      //   duration: theme.transitions.duration.enteringScreen,
-      // }),
+      width: `calc(100% - ${drawerWidth}px)`
     },
     drawerClose: {
       width: `calc(100% - ${miniDrawerWidth}px)`,
-      // transition: theme.transitions.create('width', {
-      //   easing: theme.transitions.easing.sharp,
-      //   duration: theme.transitions.duration.leavingScreen,
-      // }),
       overflowX: 'hidden',
-    },
-    header: {
-
-      // display: 'flex',
-      // 'flex-direction': 'row',
-      // color: '#fff',
-      // top: 0,
-      // left: 'auto',
-      // right: 0,
-      // position: 'fixed',
-      // border: "1px solid red",
-      // width: `calc(100% - ${drawerWidth}px)`,
     },
     grow: {
       flexGrow: 1,
@@ -64,8 +40,6 @@ const useStyles = makeStyles((theme: Theme) =>
       left: 'auto',
       right: 0,
       position: 'fixed',
-      // width: `calc(100% - ${drawerWidth}px)`,
-
       display: 'flex',
       'background-color': '#3d4977',
       padding: '3px;'
@@ -74,48 +48,13 @@ const useStyles = makeStyles((theme: Theme) =>
       marginRight: '10px',
     },
     title: {
-      display: 'block',
-      // [theme.breakpoints.up('sm')]: {
-      //   display: 'block',
-      // },
+      display: 'block'
     },
-    // search: {
-    //   position: 'relative',
-    //   borderRadius: theme.shape.borderRadius,
-    //   backgroundColor: fade(theme.palette.common.white, 0.15),
-    //   '&:hover': {
-    //     backgroundColor: fade(theme.palette.common.white, 0.25),
-    //   },
-    //   marginRight: theme.spacing(2),
-    //   marginLeft: 0,
-    //   width: '100%',
-    //   [theme.breakpoints.up('sm')]: {
-    //     marginLeft: theme.spacing(3),
-    //     width: 'auto',
-    //   },
-    // },
-    // searchIcon: {
-    //   padding: theme.spacing(0, 2),
-    //   height: '100%',
-    //   position: 'absolute',
-    //   pointerEvents: 'none',
-    //   display: 'flex',
-    //   alignItems: 'center',
-    //   justifyContent: 'center',
-    // },
+
     inputRoot: {
       color: 'inherit',
     },
-    // inputInput: {
-    //   padding: theme.spacing(1, 1, 1, 0),
-    //   // vertical padding + font size from searchIcon
-    //   paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
-    //   transition: theme.transitions.create('width'),
-    //   width: '100%',
-    //   [theme.breakpoints.up('md')]: {
-    //     width: '20ch',
-    //   },
-    // },
+
     sectionDesktop: {
       display: 'flex',
       // [theme.breakpoints.up('md')]: {
@@ -131,13 +70,7 @@ const useStyles = makeStyles((theme: Theme) =>
   }),
 );
 
-// const Composed = adopt({
-//   toggleLeftDrawer: ({ render }) => <Mutation mutation={TOGGLE_LEFT_DRAWER_MUTATION}>{render}</Mutation>,
-//   localState: ({ render }) => <Query query={LEFT_DRAWER_STATE_QUERY}>{render}</Query>,
-// });
-
 export default function Topbar(props: any) {
-  // const Topbar = ({ props }: any) => {
 
   console.log('props', props)
   const client: ApolloClient<any> = useApolloClient();
@@ -165,8 +98,6 @@ export default function Topbar(props: any) {
     setAnchorEl(null);
     handleMobileMenuClose();
   };
-
-
 
   const handleMobileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
     setMobileMoreAnchorEl(event.currentTarget);
@@ -243,9 +174,7 @@ export default function Topbar(props: any) {
   );
 
   return (
-    <div  >
-
-
+    <div >
       <div className={classes.grow}>
         <AppBar position="static" className={classNames(classes.appBar, {
           [classes.drawerOpen]: props.open,
@@ -262,43 +191,8 @@ export default function Topbar(props: any) {
               <MenuIcon />
             </IconButton>
 
-
-
-            {/* <div className={classes.search}>
-            <div className={classes.searchIcon}>
-            <SearchIcon />
-            </div>
-            <InputBase
-            placeholder="Search…"
-            classes={{
-              root: classes.inputRoot,
-              input: classes.inputInput,
-            }}
-            inputProps={{ 'aria-label': 'search' }}
-            />
-          </div> */}
             <div className={classes.grow} />
             <div className={classes.sectionDesktop}>
-              {/* <IconButton aria-label="show 4 new mails" color="inherit">
-              <Badge badgeContent={4} color="secondary">
-                <MailIcon />
-                </Badge>
-                </IconButton>
-                <IconButton aria-label="show 17 new notifications" color="inherit">
-                <Badge badgeContent={17} color="secondary">
-                <NotificationsIcon />
-                </Badge>
-                </IconButton>
-                <IconButton
-                edge="end"
-                aria-label="account of current user"
-                aria-controls={menuId}
-              aria-haspopup="true"
-              onClick={handleProfileMenuOpen}
-              color="inherit"
-              >
-              <AccountCircle />
-            </IconButton> */}
 
               {/* Show Logged In User Details with Menu  */}
               <HeaderUserbox />
@@ -323,8 +217,3 @@ export default function Topbar(props: any) {
     </div>
   )
 }
-// export default Topbar;
-
-Topbar.propTypes = {
-  open: PropTypes.bool,
-};
