@@ -20,6 +20,9 @@ const useStyles = makeStyles((theme) => ({
     minHeight: '100%',
     paddingBottom: theme.spacing(3),
     paddingTop: theme.spacing(3)
+  },
+  firstRow: {
+    height: '170px'
   }
 }));
 
@@ -40,7 +43,7 @@ const Dashboard = () => {
           xl={3}
           xs={12}
         >
-          <Budget className="hello" />
+          <Budget className={classes.firstRow} />
         </Grid>
         <Grid
           item
@@ -49,7 +52,7 @@ const Dashboard = () => {
           xl={3}
           xs={12}
         >
-          <TotalCustomers className="hello" />
+          <TotalCustomers className={classes.firstRow} />
         </Grid>
         <Grid
           item
@@ -58,7 +61,7 @@ const Dashboard = () => {
           xl={3}
           xs={12}
         >
-          <TasksProgress className="hello" />
+          <TasksProgress className={classes.firstRow} />
         </Grid>
         <Grid
           item
@@ -67,7 +70,7 @@ const Dashboard = () => {
           xl={3}
           xs={12}
         >
-          <TotalProfit className="hello" />
+          <TotalProfit className={classes.firstRow} />
         </Grid>
         <Grid
           item

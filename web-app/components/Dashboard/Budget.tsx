@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
     height: '100%'
   },
   avatar: {
-    backgroundColor: colors.red[600],
+    // backgroundColor: colors.red[600],
     height: 56,
     width: 56
   },
@@ -30,6 +30,13 @@ const useStyles = makeStyles((theme) => ({
   differenceValue: {
     color: colors.red[900],
     marginRight: theme.spacing(1)
+  },
+  bgImage: {
+    background: "url('/images/money-bag.svg')",
+    backgroundRepeat: 'round',
+    "&:before": {
+      backgroundColor: "rgba(0,0,0,0.25)"
+    }
   }
 }));
 
@@ -62,24 +69,17 @@ const Budget: React.FC<Props> = ({ className, ...rest }) => {
             </Typography>
             <Typography
               color="textPrimary"
-              variant="h3"
+              variant="h4"
             >
               $24,000
             </Typography>
           </Grid>
           <Grid item>
-            <Avatar className={classes.avatar}>
-              <MoneyIcon />
+            <Avatar src="/images/money-bag.svg" className={classes.avatar}>
+
             </Avatar>
           </Grid>
         </Grid>
-        <Box
-          mt={2}
-          display="flex"
-          alignItems="center"
-        >
-
-        </Box>
       </CardContent>
       <CardActions>
         <ArrowDownwardIcon className={classes.differenceIcon} />

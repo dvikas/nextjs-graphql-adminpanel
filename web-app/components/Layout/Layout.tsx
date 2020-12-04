@@ -32,8 +32,9 @@ import Badge from '@material-ui/core/Badge';
 
 import HeaderUserbox from './HeaderUserBox';
 
+export const drawerWidth = 240;
+export const miniDrawerWidth = 140;
 
-const drawerWidth = 240;
 var classNames = require('classnames');
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -281,8 +282,6 @@ const Layout: React.FC<Props> = ({ children, ...rest }) => {
             </IconButton>
           </div>
 
-
-
         </Toolbar>
       </AppBar>
       <Drawer
@@ -309,12 +308,9 @@ const Layout: React.FC<Props> = ({ children, ...rest }) => {
           </Grid>
         </Box>
 
-
         <Divider />
 
         <List>
-
-
 
           {routes.map((prop: any, key: any) => {
 
@@ -347,17 +343,7 @@ const Layout: React.FC<Props> = ({ children, ...rest }) => {
             );
           })}
 
-
-
-
-
-
-
         </List>
-
-
-
-        {/* <Divider /> */}
 
       </Drawer>
       <main className={classes.content}>

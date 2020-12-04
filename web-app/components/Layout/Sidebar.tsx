@@ -17,22 +17,22 @@ import Icon from "@material-ui/core/Icon";
 
 import { drawerWidth, miniDrawerWidth } from './Layout';
 
-import {
-  transition,
-  boxShadow,
-  defaultFont,
-  primaryColor,
-  primaryBoxShadow,
-  infoColor,
-  successColor,
-  warningColor,
-  dangerColor,
-  whiteColor,
-  grayColor,
-  blackColor,
-  hexToRgb,
-  blueColor
-} from "../../assets/jss/nextjs-material-dashboard.js";
+// import {
+//   transition,
+//   boxShadow,
+//   defaultFont,
+//   primaryColor,
+//   primaryBoxShadow,
+//   infoColor,
+//   successColor,
+//   warningColor,
+//   dangerColor,
+//   whiteColor,
+//   grayColor,
+//   blackColor,
+//   hexToRgb,
+//   blueColor
+// } from "../../assets/jss/nextjs-material-dashboard.js";
 
 // import sidebarStyle from "../../assets/jss/nextjs-material-dashboard/components/sidebarStyle.js";
 var classNames = require('classnames');
@@ -61,13 +61,11 @@ const useStyles = makeStyles((theme: AugmentedTheme) =>
       bottom: "0",
       left: "0",
       zIndex: 1,
-      ...boxShadow,
       // [theme.breakpoints.up("md")]: {
       //   position: "fixed",
       //   height: "100%",
       // },
       // [theme.breakpoints.down("sm")]: {
-      //   ...boxShadow,
       //   position: "fixed",
       //   display: "block",
       //   top: "0",
@@ -99,11 +97,9 @@ const useStyles = makeStyles((theme: AugmentedTheme) =>
         height: "1px",
         right: "15px",
         width: "calc(100% - 30px)",
-        backgroundColor: "rgba(" + hexToRgb(grayColor[6]) + ", 0.3)",
       },
     },
     logoLink: {
-      ...defaultFont,
       padding: "5px 0",
       display: "block",
       fontSize: "24px",
@@ -111,10 +107,9 @@ const useStyles = makeStyles((theme: AugmentedTheme) =>
       fontWeight: 400,
       lineHeight: "30px",
       textDecoration: "none",
-      color: hexToRgb(whiteColor),
       backgroundColor: "transparent",
       "&,&:hover": {
-        color: whiteColor,
+        // color: "red",
       },
     },
 
@@ -146,7 +141,7 @@ const useStyles = makeStyles((theme: AugmentedTheme) =>
       display: "block",
       textDecoration: "none",
       "&:hover,&:focus,&:visited,&": {
-        color: blackColor,
+        color: '#000',
       },
     },
     itemLink: {
@@ -169,7 +164,6 @@ const useStyles = makeStyles((theme: AugmentedTheme) =>
       marginRight: "15px",
       textAlign: "center",
       verticalAlign: "middle",
-      color: "rgba(" + hexToRgb(blackColor) + ", 0.8)",
     },
     itemIconRTL: {
       marginRight: "3px",
@@ -181,55 +175,11 @@ const useStyles = makeStyles((theme: AugmentedTheme) =>
       margin: "0",
       lineHeight: "30px",
       fontSize: "14px",
-      color: blackColor,
     },
     itemTextRTL: {
       textAlign: "right",
     },
-    whiteFont: {
-      color: whiteColor,
-    },
-    purple: {
-      backgroundColor: primaryColor[0],
-      ...primaryBoxShadow,
-      "&:hover,&:focus": {
-        backgroundColor: primaryColor[0],
-        ...primaryBoxShadow,
-      },
-    },
 
-
-
-
-    white: {
-      backgroundColor: grayColor[5],
-      // color: primaryColor[1],
-      // boxShadow:
-      //   "0 12px 20px -10px rgba(" +
-      //   hexToRgb(whiteColor) +
-      //   ",.28), 0 4px 20px 0 rgba(" +
-      //   hexToRgb(blackColor) +
-      //   ",.12), 0 7px 8px -5px rgba(" +
-      //   hexToRgb(whiteColor) +
-      //   ",.2)",
-      "&:hover,&:focus": {
-        backgroundColor: grayColor[4],
-        boxShadow:
-          "0 2px 2px -10px rgba(" +
-          hexToRgb(whiteColor) +
-          ",.28), 0 4px 20px 0 rgba(" +
-          hexToRgb(blackColor) +
-          ",.12), 0 7px 8px -5px rgba(" +
-          hexToRgb(whiteColor) +
-          ",.2)",
-      },
-      "& $itemText": {
-        color: blueColor[0],
-      },
-      "& $itemIcon": {
-        color: "rgba(" + hexToRgb(blueColor[0]) + ", 0.8)",
-      },
-    },
     sidebarWrapper: {
       position: "relative",
       height: "calc(100vh - 75px)",

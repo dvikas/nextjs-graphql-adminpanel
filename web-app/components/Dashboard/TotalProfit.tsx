@@ -51,7 +51,7 @@ const TotalProfit: React.FC<Props> = ({ className, ...rest }) => {
             </Typography>
             <Typography
               color="textPrimary"
-              variant="h3"
+              variant="h4"
             >
               $23,200
             </Typography>
