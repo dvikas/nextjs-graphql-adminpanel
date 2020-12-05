@@ -16,7 +16,7 @@ The following must be installed locally in order to run the api and it's backing
 Add the following line to your `/etc/hosts` file in order to alias your localhost to *local.app.nextgraphqladmin.com*
 
 ```text
-127.0.0.1 local.app.nextgraphqladmin.com
+127.0.0.1 local.api.nextgraphqladmin.com
 ```
 ### Install Instructions
 
