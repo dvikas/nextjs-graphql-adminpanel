@@ -111,8 +111,4 @@ const Sale: React.FC<Props> = ({ className, ...rest }) => {
   );
 };
 
-// Sale.propTypes = {
-//   className: PropTypes.string
-// };
-
 export default Sale;

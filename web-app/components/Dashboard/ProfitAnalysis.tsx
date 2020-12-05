@@ -1,6 +1,8 @@
 import React from 'react';
 import clsx from 'clsx';
-import LineChart from './LineChart';
+import loadable from '@loadable/component'
+
+const Chart = loadable(() => import('react-apexcharts'));
 
 import {
   Box,
@@ -24,11 +26,40 @@ type Props = {
   className: string
 };
 
-const Sales: React.FC<Props> = ({ className, ...rest }) => {
+const ProfitAnalysis: React.FC<Props> = ({ className, ...rest }) => {
   const classes = useStyles();
   const theme = useTheme();
 
-
+  const options = {
+    series: [{
+      name: 'Day',
+      data: [31, 40, 28, 51, 42, 109, 100]
+    }, {
+      name: 'Night',
+      data: [11, 32, 45, 32, 34, 52, 41]
+    }],
+    options: {
+      chart: {
+        height: 350,
+        type: 'area'
+      },
+      dataLabels: {
+        enabled: false
+      },
+      stroke: {
+        curve: 'smooth'
+      },
+      xaxis: {
+        type: 'datetime',
+        categories: ["2018-09-19T00:00:00.000Z", "2018-09-19T01:30:00.000Z", "2018-09-19T02:30:00.000Z", "2018-09-19T03:30:00.000Z", "2018-09-19T04:30:00.000Z", "2018-09-19T05:30:00.000Z", "2018-09-19T06:30:00.000Z"]
+      },
+      tooltip: {
+        x: {
+          format: 'dd/MM/yy HH:mm'
+        },
+      },
+    },
+  };
 
   return (
     <Card
@@ -45,7 +76,7 @@ const Sales: React.FC<Props> = ({ className, ...rest }) => {
             Last 7 days
           </Button>
         )}
-        title="Latest Sales"
+        title="Daily visits insights"
       />
       <Divider />
       <CardContent>
@@ -54,7 +85,12 @@ const Sales: React.FC<Props> = ({ className, ...rest }) => {
           position="relative"
         >
 
-          <LineChart />
+          <Chart
+            options={options.options}
+            series={options.series}
+            height="350"
+            width="97%"
+          />
 
         </Box>
       </CardContent>
@@ -77,4 +113,4 @@ const Sales: React.FC<Props> = ({ className, ...rest }) => {
   );
 };
 
-export default Sales;
+export default ProfitAnalysis;
