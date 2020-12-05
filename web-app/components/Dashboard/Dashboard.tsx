@@ -5,12 +5,12 @@ import {
   makeStyles
 } from '@material-ui/core';
 // import Page from 'src/components/Page';
-import Budget from './Budget';
+import Sale from './Sale';
 import LatestOrders from './LatestOrders';
 import LatestProducts from './LatestProducts';
 import Sales from './Sales';
-import TasksProgress from './TasksProgress';
-import TotalCustomers from './TotalCustomers';
+import Resolution from './Resolution';
+import TotalCustomers from './Customers';
 import TotalProfit from './TotalProfit';
 import TrafficByDevice from './TrafficByDevice';
 
@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
     paddingTop: theme.spacing(3)
   },
   firstRow: {
-    height: '170px'
+    height: 'auto'
   }
 }));
 
@@ -43,7 +43,7 @@ const Dashboard = () => {
           xl={3}
           xs={12}
         >
-          <Budget className={classes.firstRow} />
+          <Sale className={classes.firstRow} />
         </Grid>
         <Grid
           item
@@ -61,7 +61,7 @@ const Dashboard = () => {
           xl={3}
           xs={12}
         >
-          <TasksProgress className={classes.firstRow} />
+          <Resolution className={classes.firstRow} />
         </Grid>
         <Grid
           item

@@ -70,7 +70,7 @@ const Sales: React.FC<Props> = ({ className, ...rest }) => {
       yAxes: [
         {
           ticks: {
-            fontColor: theme.palette.text.secondary,
+            // fontColor: theme.palette.text.secondary,
             beginAtZero: true,
             min: 0
           },

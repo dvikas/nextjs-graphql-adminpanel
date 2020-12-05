@@ -20,6 +20,9 @@ import TabletIcon from '@material-ui/icons/Tablet';
 const useStyles = makeStyles(() => ({
   root: {
     height: '100%'
+  },
+  devicePercent: {
+    fontWeight: 400,
   }
 }));
 
@@ -133,7 +136,8 @@ const TrafficByDevice: React.FC<Props> = ({ className, ...rest }) => {
                 </Typography>
                 <Typography
                   style={{ color }}
-                  variant="h2"
+                  variant="h6"
+                  className={classes.devicePercent}
                 >
                   {value}
                 %

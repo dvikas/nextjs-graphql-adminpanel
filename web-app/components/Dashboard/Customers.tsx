@@ -1,8 +1,7 @@
 import React from 'react';
 import clsx from 'clsx';
+
 import {
-  Avatar,
-  Box,
   Card,
   CardContent,
   CardActions,
@@ -11,9 +10,9 @@ import {
   colors,
   makeStyles
 } from '@material-ui/core';
+import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
 
-
-const cardColor = colors.blue['500']
+const cardColor = colors.green['500']
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -39,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: 300
   },
   bgCover: {
-    backgroundImage: "linear-gradient(to bottom, rgba(255,255,255,0.8) 0%,rgba(255,255,255,0.8) 100%), url(/images/money-bag.svg)",
+    backgroundImage: "linear-gradient(to bottom, rgba(255,255,255,0.8) 0%,rgba(255,255,255,0.8) 100%), url(/images/customers.svg)",
     backgroundAttachment: "static",
     backgroundPosition: "right",
     backgroundRepeat: "no-repeat",
@@ -48,8 +47,7 @@ const useStyles = makeStyles((theme) => ({
   },
   actionBar: {
     background: "linear-gradient(90deg, rgba(187,179,179,1) 0%, rgba(255,255,255,1) 100%)",
-    borderLeft: `5px solid ${cardColor}`,
-    padding: '10px'
+    borderLeft: `5px solid ${cardColor}`
   }
 
 }));
@@ -58,7 +56,7 @@ type Props = {
   className: string
 };
 
-const Resolution: React.FC<Props> = ({ className, ...rest }) => {
+const Customers: React.FC<Props> = ({ className, ...rest }) => {
 
   const classes = useStyles();
 
@@ -80,29 +78,36 @@ const Resolution: React.FC<Props> = ({ className, ...rest }) => {
               gutterBottom
               variant="h6"
             >
-              PROFIT
+              customers
             </Typography>
             <Typography
               color="textPrimary"
               variant="h4"
               className={classes.amount}
             >
-              $128,678
+              $24,000
             </Typography>
           </Grid>
 
         </Grid>
       </CardContent>
       <CardActions className={classes.actionBar}>
-
+        <ArrowUpwardIcon className={classes.differenceIcon} />
+        <Typography
+          className={classes.differenceValue}
+          variant="body2"
+        >
+          122%
+          </Typography>
         <Typography
           color="textSecondary"
           variant="caption"
         >
-          Total profit this year
+          Since last month
           </Typography>
       </CardActions>
     </Card>
   );
 };
-export default Resolution;
+
+export default Customers;
