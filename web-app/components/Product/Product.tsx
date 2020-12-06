@@ -474,7 +474,7 @@ const Product: React.FC<Props> = ({ isPreview = false }) => {
                     unit={editProductDetails.unit}
                     slug={editProductDetails.slug}
                     parentCategory={editProductDetails.parentCategory}
-                    childCategories={editProductDetails.childCategories}
+                    childCategories={editProductDetails.childCategories as any}
                     productImages={editProductDetails.images as any ? editProductDetails.images as any : []}
                 />
             </ Dialog>

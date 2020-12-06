@@ -8,6 +8,7 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import { Formik, Form, FormikProps } from 'formik'
 import * as Yup from 'yup'
+import debounce from 'lodash.debounce';
 import { useRouter } from 'next/router';
 import { useDropzone } from 'react-dropzone';
 import { useQuery, useMutation, useLazyQuery } from '@apollo/react-hooks';
@@ -15,11 +16,17 @@ import { createProduct, createProductVariables } from '../../graphql/generated/c
 import Message, { TOGGLE_SNACKBAR_MUTATION } from '../Material/SuccessMessage';
 import { GET_CATEGORIES } from '../Category/CategoryQuery';
 import { CREATE_PRODUCT } from './ProductMutation';
-import { categories, categoriesVariables } from '../../graphql/generated/categories';
+import { categories, categoriesVariables, categories_categories_nodes } from '../../graphql/generated/categories';
 import { GET_PRODUCTS } from './ProductQuery';
 import { useStyles } from './AddProductStyle';
 import { ParentCategoriesWithIcon as ParentCategories } from '../Category/ParentCategories'
 
+interface categoryType {
+    name: string
+    id: string
+    parent: string
+    slug: string
+}
 export interface NewProductForm {
     prodName: string
     description: string
@@ -30,7 +37,7 @@ export interface NewProductForm {
     unit: string
     slug: string
     parentCategory: string
-    childCategories: string
+    childCategories: categoryType
     productImages: null | string[]
 }
 
@@ -46,21 +53,23 @@ const EditProduct: React.FC<NewProductForm> = ({
     parentCategory,
     childCategories,
     ...rest }) => {
-    console.log('From props', prodName,
-        description,
-        discount,
-        price,
-        productImages,
-        salePrice,
-        sku,
-        unit)
-    console.log('rest', rest);
+    // console.log('From props', prodName,
+    //     description,
+    //     discount,
+    //     price,
+    //     productImages,
+    //     salePrice,
+    //     parentCategory,
+    //     childCategories,
+    //     sku,
+    //     unit)
+    // console.log('rest', rest);
 
     const classes = useStyles();
     const router = useRouter();
 
     const [isFormSubmiting, setFormSubmittingStatus] = useState(true);
-    const [allChildCategories, setChildCategories] = useState([{ name: '', id: '' }]);
+    const [allChildCategories, setChildCategories] = useState([{ name: 'Shampoo12', id: 'cki79jl2e0001nf0ox7g1dtwl', parent: 'Bags12', slug: 'shampoo12' }]);
 
     const [messageMutation] = useMutation(TOGGLE_SNACKBAR_MUTATION);
 
@@ -70,16 +79,26 @@ const EditProduct: React.FC<NewProductForm> = ({
         },
     });
 
-    useQuery(GET_PRODUCTS);
-    // useQuery<categories, categoriesVariables>(GET_CATEGORIES, {
-    //     onCompleted: (data) => {
-    //         console.log('setChildCategories', data.categories.nodes)
-    //         setChildCategories(data.categories.nodes)
-    //     },
-    // });
-    // setTimeout(() => {
-    // getCategories({ variables: { parentQuery: parentCategory } })
-    // }, 1)
+    const {
+        data: productDataOnPageLoad,
+        loading: productDataOnPageLoadLoading,
+    } = useQuery(GET_PRODUCTS);
+
+    const {
+        data: productCategoryOnPageLoad,
+        loading: productCategoryOnPageLoadLoading,
+    } = useQuery<categories>(GET_CATEGORIES, {
+        variables: { parentQuery: parentCategory },
+    });
+
+    if (!productCategoryOnPageLoadLoading) {
+        if (productCategoryOnPageLoad) {
+            setTimeout(() => {
+                console.log('productCategoryOnPageLoad.categories.nodes', productCategoryOnPageLoad.categories.nodes)
+                setChildCategories(productCategoryOnPageLoad.categories.nodes)
+            }, 500)
+        }
+    }
 
     interface ImageProperties {
         image: string;
@@ -107,13 +126,14 @@ const EditProduct: React.FC<NewProductForm> = ({
             setFiles(arr)
 
             let arr1: any = []
-
+            const uploadPreset = process.env.IMAGE_UPLOAD_PRESET as string;
+            const uploadUrl = process.env.IMAGE_UPLOAD_URL as string;
             acceptedFiles.map(async (file) => {
                 const data = new FormData();
                 data.append('file', file);
-                data.append('upload_preset', 'sickfits');
+                data.append('upload_preset', uploadPreset);
 
-                const res = await fetch('https://api.cloudinary.com/v1_1/dvikas/image/upload', {
+                const res = await fetch(uploadUrl, {
                     method: 'post',
                     body: data
                 }); setTotalFilesUploaded
@@ -150,7 +170,7 @@ const EditProduct: React.FC<NewProductForm> = ({
         files.forEach((file: UploadFile) => URL.revokeObjectURL(file.preview));
         console.log('Use Effect', files.length, totalFilesUploaded.length)
         setFormSubmittingStatus(files.length !== totalFilesUploaded.length)
-    }, [files, totalFilesToUpload, totalFilesUploaded, childCategories]);
+    }, [files, totalFilesToUpload, totalFilesUploaded]);
 
     const [createProduct] = useMutation<createProduct, createProductVariables>(CREATE_PRODUCT, {
         // onError: (error) => {
@@ -188,15 +208,15 @@ const EditProduct: React.FC<NewProductForm> = ({
                 images: totalFilesUploaded
             };
 
-            createProduct({
-                variables: newProduct
-            }).then(data => {
+            // createProduct({
+            //     variables: newProduct
+            // }).then(data => {
 
-            }).catch(err => {
-                messageMutation({
-                    variables: { msg: err.message, type: 'error' }
-                })
-            });
+            // }).catch(err => {
+            //     messageMutation({
+            //         variables: { msg: err.message, type: 'error' }
+            //     })
+            // });
         }
     }
 
@@ -227,7 +247,7 @@ const EditProduct: React.FC<NewProductForm> = ({
                     unit,
                     slug: '',
                     parentCategory,
-                    childCategories: '',
+                    childCategories: { name: 'Shampoo12', id: 'cki79jl2e0001nf0ox7g1dtwl', parent: 'Bags12', slug: 'shampoo12' },
                     productImages
                 }}
                 onSubmit={(values: NewProductForm, actions) => {
@@ -542,7 +562,7 @@ const EditProduct: React.FC<NewProductForm> = ({
                                     <Autocomplete
                                         style={{}}
                                         options={allChildCategories}
-                                        value={allChildCategories.find(v => v.name === childCategories)}
+                                        // value={allChildCategories.find(v => v.name === childCategories)}
                                         autoHighlight
                                         onChange={(e, value) => {
                                             console.log('allChildCategories ==>', allChildCategories)
