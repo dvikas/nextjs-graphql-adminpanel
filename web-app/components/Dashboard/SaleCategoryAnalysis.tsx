@@ -26,59 +26,51 @@ type Props = {
   className: string
 };
 
-const ProfitAnalysis: React.FC<Props> = ({ className, ...rest }) => {
+const SaleCategoryAnalysis: React.FC<Props> = ({ className, ...rest }) => {
   const classes = useStyles();
   const theme = useTheme();
 
   const options = {
     series: [{
-      name: 'Net Profit',
-      data: [44, 55, 57, 56, 61, 58, 63, 60, 66]
+      name: 'Grocery',
+      data: [44, 55, 41, 67, 22, 43, 21, 49]
     }, {
-      name: 'Revenue',
-      data: [76, 85, 101, 98, 87, 105, 91, 114, 94]
+      name: 'Clothing',
+      data: [13, 23, 20, 8, 13, 27, 33, 12]
     }, {
-      name: 'Free Cash Flow',
-      data: [35, 41, 36, 26, 45, 48, 52, 53, 41]
+      name: 'Furniture',
+      data: [11, 17, 15, 15, 21, 14, 15, 13]
     }],
     options: {
       chart: {
         type: 'bar',
-        height: 350
+        height: 350,
+        stacked: true,
+        stackType: '100%'
       },
-      plotOptions: {
-        bar: {
-          horizontal: false,
-          columnWidth: '55%',
-          endingShape: 'rounded'
-        },
-      },
-      dataLabels: {
-        enabled: false
-      },
-      stroke: {
-        show: true,
-        width: 2,
-        colors: ['transparent']
-      },
-      xaxis: {
-        categories: ['Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct'],
-      },
-      yaxis: {
-        title: {
-          text: '$ (thousands)'
+      responsive: [{
+        breakpoint: 480,
+        options: {
+          legend: {
+            position: 'bottom',
+            offsetX: -10,
+            offsetY: 0
+          }
         }
+      }],
+      xaxis: {
+        categories: ['2011 Q1', '2011 Q2', '2011 Q3', '2011 Q4', '2012 Q1', '2012 Q2',
+          '2012 Q3', '2012 Q4'
+        ],
       },
       fill: {
         opacity: 1
       },
-      tooltip: {
-        y: {
-          formatter: function (val: any) {
-            return "$ " + val + " thousands"
-          }
-        }
-      }
+      legend: {
+        position: 'right',
+        offsetX: 0,
+        offsetY: 50
+      },
     },
 
 
@@ -99,7 +91,7 @@ const ProfitAnalysis: React.FC<Props> = ({ className, ...rest }) => {
             Last 7 days
           </Button>
         )}
-        title="Profit Analysis"
+        title="Product Sales"
       />
       <Divider />
       <CardContent>
@@ -122,4 +114,4 @@ const ProfitAnalysis: React.FC<Props> = ({ className, ...rest }) => {
   );
 };
 
-export default ProfitAnalysis;
+export default SaleCategoryAnalysis;

@@ -13,6 +13,8 @@ import Resolution from './Resolution';
 import TotalCustomers from './Customers';
 import TotalProfit from './TotalProfit';
 import TrafficByDevice from './TrafficByDevice';
+import ProfitAnalysis from './ProfitAnalysis';
+import SaleCategoryAnalysis from './SaleCategoryAnalysis';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -74,21 +76,21 @@ const Dashboard = () => {
         </Grid>
         <Grid
           item
-          lg={8}
+          lg={6}
           md={12}
           xl={9}
           xs={12}
         >
-          <DailyVisitsInsight className="" />
+          <ProfitAnalysis className="" />
         </Grid>
         <Grid
           item
-          lg={4}
+          lg={6}
           md={6}
           xl={3}
           xs={12}
         >
-          <TrafficByDevice className="" />
+          <SaleCategoryAnalysis className="" />
         </Grid>
 
         <Grid
