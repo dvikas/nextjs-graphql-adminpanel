@@ -43,7 +43,7 @@ const TrafficByDevice: React.FC<Props> = ({ className, ...rest }) => {
           colors.red[600],
           colors.orange[600]
         ],
-        borderWidth: 8,
+        borderWidth: 1,
         borderColor: colors.common.white,
         hoverBorderColor: colors.common.white
       }
@@ -52,7 +52,7 @@ const TrafficByDevice: React.FC<Props> = ({ className, ...rest }) => {
   };
 
   const options: any = {
-    animation: false,
+    animation: true,
     cutoutPercentage: 80,
     layout: { padding: 0 },
     legend: {
@@ -64,7 +64,7 @@ const TrafficByDevice: React.FC<Props> = ({ className, ...rest }) => {
       backgroundColor: theme.palette.background.default,
       bodyFontColor: theme.palette.text.secondary,
       borderColor: theme.palette.divider,
-      borderWidth: 1,
+      borderWidth: 5,
       enabled: true,
       footerFontColor: theme.palette.text.secondary,
       intersect: false,

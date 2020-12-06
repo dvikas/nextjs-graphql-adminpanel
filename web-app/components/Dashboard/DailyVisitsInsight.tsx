@@ -76,7 +76,7 @@ const DailyVisitsInsight: React.FC<Props> = ({ className, ...rest }) => {
             Last 7 days
           </Button>
         )}
-        title="Daily visits insights"
+        title="Daily Visits Insights"
       />
       <Divider />
       <CardContent>
@@ -94,21 +94,7 @@ const DailyVisitsInsight: React.FC<Props> = ({ className, ...rest }) => {
 
         </Box>
       </CardContent>
-      <Divider />
-      <Box
-        display="flex"
-        justifyContent="flex-end"
-        p={2}
-      >
-        <Button
-          color="primary"
-          endIcon={<ArrowRightIcon />}
-          size="small"
-          variant="text"
-        >
-          Overview
-        </Button>
-      </Box>
+
     </Card>
   );
 };
