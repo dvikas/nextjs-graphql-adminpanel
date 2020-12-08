@@ -95,7 +95,7 @@ interface NewProductForm {
     unit: string
     slug: string
     parentCategory: string
-    childCategories: string
+    childCategory: string
     productImages: string[]
 }
 
@@ -109,7 +109,7 @@ const editProductDefaultValues = {
     unit: '',
     slug: '',
     parentCategory: '',
-    childCategories: '',
+    childCategory: '',
     images: {}
 };
 
@@ -159,6 +159,7 @@ const Product: React.FC<Props> = ({ isPreview = false }) => {
         getCategories({ variables: { parentQuery: category.parent } })
 
         if (!loadingChildCategories) {
+            console.log('category is', product)
             setEditProductDetails({
                 prodName: product.name,
                 description: product.description,
@@ -169,7 +170,7 @@ const Product: React.FC<Props> = ({ isPreview = false }) => {
                 unit: product.unit,
                 slug: '',
                 parentCategory: category.parent,
-                childCategories: category.name,
+                childCategory: category.id,
                 images: product.ProductImages
             });
             setEditDialogOpen(true);
@@ -492,7 +493,8 @@ const Product: React.FC<Props> = ({ isPreview = false }) => {
                     unit={editProductDetails.unit}
                     slug={editProductDetails.slug}
                     parentCategory={editProductDetails.parentCategory}
-                    childCategories={editProductDetails.childCategories as any}
+                    childCategory={editProductDetails.childCategory as any}
+                    childCategories={allChildCategories}
                     productImages={editProductDetails.images as any ? editProductDetails.images as any : []}
                 />
             </ Dialog>

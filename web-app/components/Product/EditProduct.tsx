@@ -41,7 +41,8 @@ interface EditProductForm {
     unit: string
     slug: string
     parentCategory: string
-    childCategories: string
+    childCategory: string
+    childCategories: categoryType[]
     productImages: null | string[]
 }
 export interface NewProductForm {
@@ -54,6 +55,7 @@ export interface NewProductForm {
     unit: string
     slug: string
     parentCategory: string
+    selectedChildCategory: string
     childCategories: categoryType[]
     productImages: null | string[]
 }
@@ -68,7 +70,8 @@ const EditProduct: React.FC<EditProductForm> = ({
     sku,
     unit,
     parentCategory,
-    childCategories: selectedChildCategory,
+    childCategory: selectedChildCategory,
+    childCategories: allChildCategoriesProps,
     ...rest }) => {
     // console.log('From props', prodName,
     //     description,
@@ -79,16 +82,17 @@ const EditProduct: React.FC<EditProductForm> = ({
     //     sku,
     //     unit)
     // console.log('parentCategory', parentCategory);
-    // console.log('childCategories:', selectedChildCategory);
+    console.log('childCategories:', selectedChildCategory);
 
     // console.log('rest', rest);
+    console.log('allChildCategoriesProps', allChildCategoriesProps);
 
     const classes = useStyles();
     const router = useRouter();
 
     const [isFormCategoryLoaded, setFormCategoryLoaded] = useState(true);
     const [isFormSubmiting, setFormSubmittingStatus] = useState(true);
-    const [allChildCategories, setChildCategories] = useState([{ name: '', id: '', parent: '', slug: '' }]);
+    const [allChildCategories, setChildCategories] = useState(allChildCategoriesProps);
 
     const [messageMutation] = useMutation(TOGGLE_SNACKBAR_MUTATION);
 
@@ -96,8 +100,7 @@ const EditProduct: React.FC<EditProductForm> = ({
         onCompleted: (data) => {
             if (data.categories.nodes.length) {
                 setChildCategories(data.categories.nodes)
-                console.log('99 =>>>', data.categories.nodes)
-                // setChildCategories([{ name: '', id: '', parent: '', slug: '' }])
+                console.log('Setting Child Categories =>>>', data.categories.nodes)
             }
         },
     });
@@ -106,27 +109,6 @@ const EditProduct: React.FC<EditProductForm> = ({
         data: productDataOnPageLoad,
         loading: productDataOnPageLoadLoading,
     } = useQuery(GET_PRODUCTS);
-
-    const {
-        data: productCategoryOnPageLoad,
-        loading: productCategoryOnPageLoadLoading,
-    } = useQuery<categories>(GET_CATEGORIES, {
-        variables: { parentQuery: parentCategory },
-    });
-
-    // if (!productCategoryOnPageLoadLoading) {
-    //     if (productCategoryOnPageLoad) {
-    //         setTimeout(() => {
-    //             console.log('120 ==> ', productCategoryOnPageLoad.categories.nodes)
-    //             // productCategoryOnPageLoad.categories.nodes.map(product => {
-    //             //     console.log(product)
-    //             // })
-    //             setChildCategories(productCategoryOnPageLoad.categories.nodes)
-    //             setFormCategoryLoaded(true);
-    //         }, 100)
-    //     }
-    // }
-
     interface ImageProperties {
         image: string;
     }
@@ -277,7 +259,8 @@ const EditProduct: React.FC<EditProductForm> = ({
                         unit,
                         slug: '',
                         parentCategory,
-                        childCategories: [{ name: '', id: '', parent: '', slug: '' }],
+                        selectedChildCategory,
+                        childCategories: allChildCategories,
                         productImages
                     }}
                     onSubmit={(values: NewProductForm, actions) => {
@@ -542,7 +525,7 @@ const EditProduct: React.FC<EditProductForm> = ({
                                         <Autocomplete
                                             style={{}}
                                             options={ParentCategories}
-                                            value={ParentCategories.find(v => v.name === parentCategory)}
+                                            value={ParentCategories.find(v => v.name === values.parentCategory)}
 
                                             autoHighlight
                                             onChange={(e, value) => {
@@ -552,7 +535,7 @@ const EditProduct: React.FC<EditProductForm> = ({
                                                 // console.log('Parent Cat name =>', value?.name)
                                                 if (value !== null && typeof value === 'object') {
                                                     getCategories({ variables: { parentQuery: value.name } })
-                                                    // setFieldValue('parentCategory', value.name);
+                                                    setFieldValue('parentCategory', value.name);
                                                 }
                                             }}
                                             getOptionLabel={(option) => option.label}
@@ -595,16 +578,15 @@ const EditProduct: React.FC<EditProductForm> = ({
                                         <Autocomplete
                                             style={{}}
                                             options={allChildCategories}
-                                            value={allChildCategories.find(v => v.name === selectedChildCategory)}
+                                            value={
+                                                allChildCategories?.find(v => v.id === values.selectedChildCategory)
+                                            }
+                                            getOptionSelected={(option, value) => option.name === value.name}
                                             autoHighlight
                                             loading={loadingChildCategories}
                                             onChange={(e, value) => {
-                                                // console.log('allChildCategories ==>', allChildCategories)
-                                                // console.log('childCategories ==> ', selectedChildCategory)
-                                                const sel = allChildCategories.find(v => v.name === selectedChildCategory)
-                                                console.log('sel', sel)
                                                 if (value !== null && typeof value === 'object') {
-                                                    setFieldValue('childCategories', value.id);
+                                                    setFieldValue('selectedChildCategory', value.id);
                                                 }
                                             }}
                                             getOptionLabel={(option) => option.name}

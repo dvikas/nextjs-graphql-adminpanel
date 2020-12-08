@@ -19,6 +19,7 @@ export const GET_PRODUCTS = gql`
             unit
             description
             Category {
+                id
                 name
                 parent
             }
