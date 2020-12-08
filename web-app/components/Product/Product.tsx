@@ -26,7 +26,7 @@ import SearchIcon from '@material-ui/icons/Search';
 // import styled from '@emotion/styled';
 // import ApolloClient from 'apollo-client';
 import Link from 'next/link';
-import { useApolloClient, useQuery, useMutation } from '@apollo/react-hooks';
+import { useApolloClient, useQuery, useMutation, useLazyQuery } from '@apollo/react-hooks';
 // import MaterialTable from 'material-table';
 import TextField from "@material-ui/core/TextField";
 import Button from '@material-ui/core/Button';
@@ -54,10 +54,12 @@ import { usePaginationQuery } from '../../utils/hooks/usePaginationQuery';
 import Pagination from '@material-ui/lab/Pagination';
 import { useStyles } from './ProductStyle';
 import { GET_PRODUCTS } from './ProductQuery';
-var classNames = require('classnames');
+import { GET_CATEGORIES } from '../Category/CategoryQuery';
 import EditProduct from './EditProduct';
+import { categories, categoriesVariables, categories_categories_nodes } from '../../graphql/generated/categories';
 
 
+var classNames = require('classnames');
 const previewPageSize = 10;
 
 function valuetext(value: number) {
@@ -123,6 +125,16 @@ const Product: React.FC<Props> = ({ isPreview = false }) => {
     const [pagingPageSize, setPagingPageSize] = React.useState(pageSize);
     const [pagingPageSizeDialog, setPagingPageSizeDialog] = React.useState(false);
     const [pagingOrderBy, setPagingOrderBy] = React.useState('updatedAt');
+    const [allChildCategories, setChildCategories] = useState([{ name: '', id: '', parent: '', slug: '' }]);
+
+    const [getCategories, { loading: loadingChildCategories }] = useLazyQuery<categories, categoriesVariables>(GET_CATEGORIES, {
+        onCompleted: (data) => {
+            if (data.categories.nodes.length) {
+                setChildCategories(data.categories.nodes)
+                console.log('99 =>>>', data.categories.nodes)
+            }
+        },
+    });
 
     const [isDiscount, setIsDiscount] = React.useState(false);
     const handleDiscountChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -143,20 +155,26 @@ const Product: React.FC<Props> = ({ isPreview = false }) => {
     const [editDialogOpen, setEditDialogOpen] = React.useState(false);
     const handleClickOpenEditDialog = (product: NewProductForm) => {
         const category = product.Category as any
-        setEditProductDetails({
-            prodName: product.name,
-            description: product.description,
-            discount: product.discount,
-            price: product.price,
-            salePrice: product.salePrice,
-            sku: product.sku,
-            unit: product.unit,
-            slug: '',
-            parentCategory: category.parent,
-            childCategories: category.name,
-            images: product.ProductImages
-        });
-        setEditDialogOpen(true);
+
+        getCategories({ variables: { parentQuery: category.parent } })
+
+        if (!loadingChildCategories) {
+            setEditProductDetails({
+                prodName: product.name,
+                description: product.description,
+                discount: product.discount,
+                price: product.price,
+                salePrice: product.salePrice,
+                sku: product.sku,
+                unit: product.unit,
+                slug: '',
+                parentCategory: category.parent,
+                childCategories: category.name,
+                images: product.ProductImages
+            });
+            setEditDialogOpen(true);
+        }
+
     };
     const handleClose = () => {
         setEditDialogOpen(false);
