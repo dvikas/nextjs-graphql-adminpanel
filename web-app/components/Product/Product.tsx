@@ -160,20 +160,22 @@ const Product: React.FC<Props> = ({ isPreview = false }) => {
 
         if (!loadingChildCategories) {
             console.log('category is', product)
-            setEditProductDetails({
-                prodName: product.name,
-                description: product.description,
-                discount: product.discount,
-                price: product.price,
-                salePrice: product.salePrice,
-                sku: product.sku,
-                unit: product.unit,
-                slug: '',
-                parentCategory: category.parent,
-                childCategory: category.id,
-                images: product.ProductImages
-            });
-            setEditDialogOpen(true);
+            setTimeout(() => {
+                setEditProductDetails({
+                    prodName: product.name,
+                    description: product.description,
+                    discount: product.discount,
+                    price: product.price,
+                    salePrice: product.salePrice,
+                    sku: product.sku,
+                    unit: product.unit,
+                    slug: '',
+                    parentCategory: category.parent,
+                    childCategory: category.id,
+                    images: product.ProductImages
+                });
+                setEditDialogOpen(true);
+            }, 200)
         }
 
     };
