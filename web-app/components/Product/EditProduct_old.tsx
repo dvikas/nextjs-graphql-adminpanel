@@ -82,10 +82,6 @@ const EditProduct: React.FC<EditProductForm> = ({
     //     sku,
     //     unit)
     // console.log('parentCategory', parentCategory);
-    console.log('childCategories:', selectedChildCategory);
-
-    // console.log('rest', rest);
-    console.log('allChildCategoriesProps', allChildCategoriesProps);
 
     const classes = useStyles();
     const router = useRouter();
@@ -174,6 +170,10 @@ const EditProduct: React.FC<EditProductForm> = ({
     ));
 
 
+    const ProductImages = (image: ImageProperties) => {
+        console.log('ProductImages', image)
+        return <div>Images here</div>
+    }
     useEffect(() => () => {
         // Make sure to revoke the data uris to avoid memory leaks
         files.forEach((file: UploadFile) => URL.revokeObjectURL(file.preview));
@@ -653,43 +653,44 @@ const EditProduct: React.FC<EditProductForm> = ({
                                         />
                                     </Grid>
 
-                                    <Grid
-                                        item
-                                        md={12}
-                                        sm={12}
-                                        xs={12}
-                                        className={classes.uploadButton}
-                                    >
-                                        {/* DROPZONE */}
-                                        <section className={classes.FileContainer}>
-                                            <div  {...getRootProps({ className: 'dropzone' })}>
-
-                                                <input {...getInputProps()} />
-                                                <p>Drag 'n' drop some product images here, or click to select files</p>
-                                            </div>
-                                            <aside className={classes.thumbsContainer}>
-                                                {thumbs}
-                                            </aside>
-                                            <FileUploading />
-                                        </section>
-                                        {/* DROPZONE */}
-                                    </Grid>
-
-                                    <Grid
-                                        item
-                                        xs={12}
-                                        className={classes.submitButton}
-                                    >
-                                        <Button
-                                            type="submit"
-                                            variant="contained"
-                                            color="primary"
-                                            disabled={isFormSubmiting}
+                                    <ProductImages images={productImages}>
+                                        <Grid
+                                            item
+                                            md={12}
+                                            sm={12}
+                                            xs={12}
+                                            className={classes.uploadButton}
                                         >
-                                            Submit
+                                            {/* DROPZONE */}
+                                            <section className={classes.FileContainer}>
+                                                <div  {...getRootProps({ className: 'dropzone' })}>
+
+                                                    <input {...getInputProps()} />
+                                                    <p>Drag 'n' drop some product images here, or click to select files</p>
+                                                </div>
+                                                <aside className={classes.thumbsContainer}>
+                                                    {thumbs}
+                                                </aside>
+                                                <FileUploading />
+                                            </section>
+                                            {/* DROPZONE */}
+                                        </Grid>
+
+                                        <Grid
+                                            item
+                                            xs={12}
+                                            className={classes.submitButton}
+                                        >
+                                            <Button
+                                                type="submit"
+                                                variant="contained"
+                                                color="primary"
+                                                disabled={isFormSubmiting}
+                                            >
+                                                Submit
                                     </Button>
 
-                                    </Grid>
+                                        </Grid>
                                 </Grid>
                             </Form>
                         )

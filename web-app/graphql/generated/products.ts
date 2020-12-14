@@ -11,6 +11,7 @@ import { ProductOrderByInput } from "./graphql-global-types";
 
 export interface products_products_nodes_Category {
   __typename: "Category";
+  id: string;
   name: string;
   parent: string;
 }

@@ -16,8 +16,6 @@ export const Query = queryType({
             type: 'User',
             nullable: true,
             resolve: async (_root, _args, ctx) => {
-                console.log('Getting user details...');
-
                 if (ctx.user === null) {
                     return null;
                 }

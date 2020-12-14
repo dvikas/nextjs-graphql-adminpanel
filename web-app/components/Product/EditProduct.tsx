@@ -2,19 +2,25 @@ import React, { useEffect, useState } from 'react'
 import {
     Grid,
     TextField,
-    Button
+    Button,
+    GridList,
+    GridListTile,
+    GridListTileBar,
+    IconButton
 } from '@material-ui/core'
+
+import DeleteOutlineIcon from '@material-ui/icons/DeleteOutline';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import { Formik, Form, FormikProps } from 'formik'
 import * as Yup from 'yup'
-import { useRouter } from 'next/router';
+
 import { useDropzone } from 'react-dropzone';
 import { useQuery, useMutation, useLazyQuery } from '@apollo/react-hooks';
-import { createProduct, createProductVariables } from '../../graphql/generated/createProduct';
+import { UPDATE_PRODUCT_MUTATION_updateProduct, UPDATE_PRODUCT_MUTATIONVariables } from '../../graphql/generated/UPDATE_PRODUCT_MUTATION';
 import Message, { TOGGLE_SNACKBAR_MUTATION } from '../Material/SuccessMessage';
 import { GET_CATEGORIES } from '../Category/CategoryQuery';
-import { CREATE_PRODUCT } from './ProductMutation';
+import { UPDATE_PRODUCT_MUTATION } from './ProductMutation';
 import { categories, categoriesVariables } from '../../graphql/generated/categories';
 import { GET_PRODUCTS } from './ProductQuery';
 import { useStyles } from './AddProductStyle';
@@ -40,6 +46,8 @@ interface categoryType {
     slug: string
 }
 interface EditProductForm {
+    handleEditDialogOpen: any
+    id: string
     prodName: string
     description: string
     discount: number
@@ -52,8 +60,10 @@ interface EditProductForm {
     childCategory: string
     childCategories: categoryType[]
     productImages: null | string[]
+    productQueryVariables: any
 }
 const EditProduct: React.FC<EditProductForm> = ({
+    id,
     prodName,
     description,
     discount,
@@ -65,30 +75,36 @@ const EditProduct: React.FC<EditProductForm> = ({
     parentCategory,
     childCategory: selectedChildCategory,
     childCategories: allChildCategoriesProps,
+    productQueryVariables,
+    handleEditDialogOpen,
     ...rest }) => {
-    const classes = useStyles();
-    const router = useRouter();
+    // console.log('productImages', productImages)
+    // console.log('product ID', id)
 
-    const [isFormSubmiting, setFormSubmittingStatus] = useState(true);
+    const classes = useStyles();
+
+    const [isFormSubmitting, setFormSubmittingStatus] = useState(false);
     const [childCategories, setChildCategories] = useState(allChildCategoriesProps);
 
     const [messageMutation] = useMutation(TOGGLE_SNACKBAR_MUTATION);
 
     const [getCategories] = useLazyQuery<categories, categoriesVariables>(GET_CATEGORIES, {
         onCompleted: (data) => {
-            console.log('1', allChildCategoriesProps)
-            console.log('2', data.categories.nodes)
             setChildCategories(data.categories.nodes)
         },
     });
 
-    useQuery(GET_PRODUCTS);
+    const { data, error, loading, refetch } = useQuery(GET_PRODUCTS, {
+        variables: productQueryVariables
+    });
+
     interface ImageProperties {
         image: string;
     }
 
     const [totalFilesToUpload, setTotalFilesToUpload] = React.useState(0);
     const [totalFilesUploaded, setTotalFilesUploaded] = useState<ImageProperties[]>([]);
+    const [alreadyUploadedImages, setAlreadyUploadedImages] = useState(productImages);
 
     //////////////////////////////////////////////
     const [files, setFiles] = useState([]);
@@ -96,6 +112,7 @@ const EditProduct: React.FC<EditProductForm> = ({
         accept: 'image/*',
         onDrop: acceptedFiles => {
 
+            setFormSubmittingStatus(true)
             setTotalFilesUploaded([])
             setTotalFilesToUpload(0)
 
@@ -118,17 +135,22 @@ const EditProduct: React.FC<EditProductForm> = ({
                 data.append('file', file);
                 data.append('upload_preset', uploadPreset);
 
-                const res = await fetch(uploadUrl, {
+                fetch(uploadUrl, {
                     method: 'post',
                     body: data
-                }); setTotalFilesUploaded
-                const resFile = await res.json()
-                if (resFile) {
-                    const url = resFile.secure_url
-                    const length = arr1.push({ image: url })
-                    setTotalFilesUploaded(arr1)
-                    setTotalFilesToUpload(length)
-                }
+                }).then(async (res) => {
+                    const resFile = await res.json();
+                    console.log('resFile', resFile)
+                    if (resFile) {
+                        const url = resFile.secure_url
+                        const length = arr1.push({ image: url })
+                        if (arr.length === arr1.length) {
+                            setFormSubmittingStatus(false);
+                        }
+                        setTotalFilesUploaded(arr1);
+                        setTotalFilesToUpload(length);
+                    }
+                });
             })
         }
     });
@@ -149,30 +171,86 @@ const EditProduct: React.FC<EditProductForm> = ({
         </div>
     ));
 
+    const removeExistingImage = (index: number, allImages: ImageProperties[]) => {
+        const allImagesData = [...allImages];
+        allImagesData.splice(index, 1);
+        setAlreadyUploadedImages(allImagesData);
+    };
+
+    const ProductImagesSection = ({ images }) => {
+
+        if (images.length > 0) {
+            return <GridList cellHeight={180} className={classes.gridList}>
+                {
+                    images.map((image: any, index: number) => {
+
+                        return (
+                            <GridListTile key={image.image}>
+                                <img src={image.image} alt="Product Image" />
+                                <GridListTileBar
+                                    classes={{
+                                        root: classes.titleBar,
+                                    }}
+                                    actionIcon={
+                                        <IconButton
+                                            onClick={e => {
+                                                removeExistingImage(index, alreadyUploadedImages)
+                                            }}
+                                            className={classes.icon}>
+                                            <DeleteOutlineIcon />
+                                        </IconButton>
+                                    }
+                                />
+                            </GridListTile>
+
+                        )
+                    })
+                }
+            </GridList>
+        } else {
+            return <div></div>
+        }
+    }
 
     useEffect(() => () => {
         // Make sure to revoke the data uris to avoid memory leaks
-        files.forEach((file: UploadFile) => URL.revokeObjectURL(file.preview));
-        console.log('Use Effect', files.length, totalFilesUploaded.length)
-        setFormSubmittingStatus(files.length !== totalFilesUploaded.length)
+        // files.forEach((file: UploadFile) => URL.revokeObjectURL(file.preview));
+        // console.log('Use Effect', files.length, totalFilesUploaded.length)
+        // setFormSubmittingStatus(files.length !== totalFilesUploaded.length)
     }, [files, totalFilesToUpload, totalFilesUploaded]);
 
-    const [createProduct] = useMutation<createProduct, createProductVariables>(CREATE_PRODUCT, {
-        // onError: (error) => {
-        // },
+    const [updateProduct] = useMutation<UPDATE_PRODUCT_MUTATION_updateProduct, UPDATE_PRODUCT_MUTATIONVariables>(UPDATE_PRODUCT_MUTATION, {
+        onError: (error) => {
+            console.log('error-UPDATE_PRODUCT_MUTATION:', error)
+        },
         onCompleted: (data) => {
             messageMutation({
-                variables: { msg: 'Product added successfully', type: 'success' }
+                variables: { msg: 'Product updated successfully', type: 'success' }
             })
-            setTimeout(() => {
-                router.push('/products');
-            }, 100)
         },
         update(cache, { data }) {
-            const cacheData: any = cache.readQuery({ query: GET_PRODUCTS });
-            if (data) {
-                cacheData.products.nodes.push(data.createProduct)
-            }
+
+            const cacheData: any = cache.readQuery({ query: GET_PRODUCTS, variables: productQueryVariables })
+            const returnedData = data.updateProduct;
+            cacheData.products.nodes.map((item: any) => {
+
+                if (item.id === returnedData.id) {
+                    console.log('item', item)
+                    console.log('returnedData', returnedData)
+                    item.name = returnedData.name
+                    item.ProductImages = returnedData.ProductImages
+                    item.description = returnedData.description
+                    item.discount = returnedData.discount
+                    item.name = returnedData.name
+                    item.price = returnedData.price
+                    item.salePrice = returnedData.salePrice
+                    item.sku = returnedData.sku
+                    item.unit = returnedData.unit
+                    // Close Dialog in last to prevent error of
+                    // React state update on an unmounted component.
+                    handleEditDialogOpen(false);
+                }
+            });
         }
     });
 
@@ -181,27 +259,33 @@ const EditProduct: React.FC<EditProductForm> = ({
         // API call integration will be here. Handle success / error response accordingly.
         if (data) {
 
-            // const newProduct = {
-            //     name: data.prodName,
-            //     description: data.description,
-            //     discount: (data.discount),
-            //     price: (data.price),
-            //     salePrice: (data.salePrice),
-            //     sku: data.sku,
-            //     unit: data.unit,
-            //     categoryId: data.childCategories,
-            //     images: totalFilesUploaded
-            // };
+            console.log('NewProductForm Data', data);
+            console.log('totalFilesUploaded', totalFilesUploaded);
+            console.log('alreadyUploadedImages', alreadyUploadedImages);
 
-            // createProduct({
-            //     variables: newProduct
-            // }).then(data => {
+            const newProduct = {
+                id: data.id,
+                name: data.prodName,
+                description: data.description,
+                discount: (data.discount),
+                price: (data.price),
+                salePrice: (data.salePrice),
+                sku: data.sku,
+                unit: data.unit,
+                categoryId: data.selectedChildCategory,
+                images: totalFilesUploaded,
+                alreadyUploadedImages: alreadyUploadedImages
+            };
 
-            // }).catch(err => {
-            //     messageMutation({
-            //         variables: { msg: err.message, type: 'error' }
-            //     })
-            // });
+            updateProduct({
+                variables: newProduct
+            }).then(data => {
+
+            }).catch(err => {
+                messageMutation({
+                    variables: { msg: err.message, type: 'error' }
+                })
+            });
         }
     }
 
@@ -220,20 +304,23 @@ const EditProduct: React.FC<EditProductForm> = ({
     }
 
     return (
-        <div className={classes.root}>
+        <div className={classes.root} style={{ padding: '20px' }}>
+
             <Formik
                 initialValues={{
-                    prodName: '',
-                    description: '',
-                    discount: 0,
-                    price: 0,
-                    salePrice: 0,
-                    sku: '',
-                    unit: '',
+                    id,
+                    prodName,
+                    description,
+                    discount,
+                    price,
+                    salePrice,
+                    sku,
+                    unit,
                     slug: '',
                     parentCategory: parentCategory,
                     selectedChildCategory,
-                    childCategories: [{ id: '', name: "", parent: "", slug: "" }]
+                    childCategories: [{ id: '', name: "", parent: "", slug: "" }],
+                    productImages
                 }}
                 onSubmit={(values: NewProductForm, actions) => {
                     createNewProduct(values, actions.resetForm)
@@ -279,7 +366,7 @@ const EditProduct: React.FC<EditProductForm> = ({
                                 <Grid
                                     item
                                     md={3}
-                                    sm={10}
+                                    sm={3}
                                     xs={10}
                                     className={classes.textField}
                                 >
@@ -310,7 +397,7 @@ const EditProduct: React.FC<EditProductForm> = ({
                                 <Grid
                                     item
                                     md={9}
-                                    sm={10}
+                                    sm={9}
                                     xs={10}
                                     className={classes.textField}
                                 >
@@ -342,7 +429,7 @@ const EditProduct: React.FC<EditProductForm> = ({
                                     item
 
                                     md={3}
-                                    sm={10}
+                                    sm={3}
                                     xs={10}
                                     className={classes.textField}
                                 >
@@ -384,7 +471,7 @@ const EditProduct: React.FC<EditProductForm> = ({
                                     item
 
                                     md={3}
-                                    sm={10}
+                                    sm={3}
                                     xs={10}
                                     className={classes.textField}
                                 >
@@ -425,7 +512,7 @@ const EditProduct: React.FC<EditProductForm> = ({
                                     item
 
                                     md={3}
-                                    sm={10}
+                                    sm={3}
                                     xs={10}
                                     className={classes.textField}
                                 >
@@ -460,7 +547,7 @@ const EditProduct: React.FC<EditProductForm> = ({
                                 <Grid
                                     item
                                     md={3}
-                                    sm={10}
+                                    sm={3}
                                     xs={10}
                                     className={classes.textField}
                                 >
@@ -490,7 +577,7 @@ const EditProduct: React.FC<EditProductForm> = ({
 
                                 <Grid item style={{ paddingTop: 11, paddingBottom: 11 }}
                                     md={3}
-                                    sm={10}
+                                    sm={3}
                                     xs={10}
                                     className={classes.textField}>
                                     <Autocomplete
@@ -499,7 +586,7 @@ const EditProduct: React.FC<EditProductForm> = ({
                                         value={ParentCategories.find(v => v.name === values.parentCategory)}
                                         autoHighlight
                                         onChange={(e, value) => {
-                                            console.log('Parent Cat name =>', value?.name)
+
                                             if (value !== null && typeof value === 'object') {
                                                 getCategories({ variables: { parentQuery: value.name } })
                                                 setFieldValue('parentCategory', value.name);
@@ -539,7 +626,7 @@ const EditProduct: React.FC<EditProductForm> = ({
 
                                 <Grid item style={{ paddingTop: 11, paddingBottom: 11 }}
                                     md={3}
-                                    sm={10}
+                                    sm={3}
                                     xs={10}
                                     className={classes.textField}>
                                     <Autocomplete
@@ -589,7 +676,7 @@ const EditProduct: React.FC<EditProductForm> = ({
                                     item
 
                                     md={6}
-                                    sm={10}
+                                    sm={6}
                                     xs={10}
                                     className={classes.textField}
                                 >
@@ -624,6 +711,16 @@ const EditProduct: React.FC<EditProductForm> = ({
                                     xs={12}
                                     className={classes.uploadButton}
                                 >
+                                    <ProductImagesSection images={alreadyUploadedImages}></ProductImagesSection>
+                                </Grid>
+
+                                <Grid
+                                    item
+                                    md={12}
+                                    sm={12}
+                                    xs={12}
+                                    className={classes.uploadButton}
+                                >
                                     {/* DROPZONE */}
                                     <section className={classes.FileContainer}>
                                         <div  {...getRootProps({ className: 'dropzone' })}>
@@ -648,7 +745,7 @@ const EditProduct: React.FC<EditProductForm> = ({
                                         type="submit"
                                         variant="contained"
                                         color="primary"
-                                        disabled={isFormSubmiting}
+                                        disabled={isFormSubmitting}
                                     >
                                         Submit
                                     </Button>

@@ -83,6 +83,7 @@ const orderByValues = [{
 ];
 
 interface NewProductForm {
+    id: string
     name: string
     Category: string
     ProductImages: string[]
@@ -100,6 +101,7 @@ interface NewProductForm {
 }
 
 const editProductDefaultValues = {
+    id: '',
     prodName: '',
     description: '',
     discount: 0,
@@ -131,7 +133,6 @@ const Product: React.FC<Props> = ({ isPreview = false }) => {
         onCompleted: (data) => {
             if (data.categories.nodes.length) {
                 setChildCategories(data.categories.nodes)
-                console.log('99 =>>>', data.categories.nodes)
             }
         },
     });
@@ -159,9 +160,10 @@ const Product: React.FC<Props> = ({ isPreview = false }) => {
         getCategories({ variables: { parentQuery: category.parent } })
 
         if (!loadingChildCategories) {
-            console.log('category is', product)
+
             setTimeout(() => {
                 setEditProductDetails({
+                    id: product.id,
                     prodName: product.name,
                     description: product.description,
                     discount: product.discount,
@@ -217,17 +219,17 @@ const Product: React.FC<Props> = ({ isPreview = false }) => {
 
     const skip = isPreview ? 0 : (page - 1) * pageSize;
     const first = isPreview ? previewPageSize : pageSize;
-
+    const productQueryVariables = {
+        first,
+        skip,
+        nameQuery: productName,
+        discount: isDiscount ? discountSliderValue.toString() : '',
+        orderBy: {
+            [orderBy]: direction,
+        }
+    };
     const { data, error, loading, refetch } = useQuery(GET_PRODUCTS, {
-        variables: {
-            first,
-            skip,
-            nameQuery: productName,
-            discount: isDiscount ? discountSliderValue.toString() : '',
-            orderBy: {
-                [orderBy]: direction,
-            }
-        },
+        variables: productQueryVariables
     });
 
     const pagingHandleChange = (event: React.ChangeEvent<unknown>, value: number) => {
@@ -249,7 +251,9 @@ const Product: React.FC<Props> = ({ isPreview = false }) => {
     const discountLabel = () => {
         return isDiscount ? 'Discount(' + discountText + ')' : 'Discount'
     }
-
+    const handleEditDialogOpen = (val: boolean) => {
+        setEditDialogOpen(val)
+    }
     return (
         <div>
             <Message />
@@ -486,6 +490,8 @@ const Product: React.FC<Props> = ({ isPreview = false }) => {
                     </Toolbar>
                 </AppBar>
                 <EditProduct
+                    handleEditDialogOpen={handleEditDialogOpen}
+                    id={editProductDetails.id}
                     prodName={editProductDetails.prodName}
                     description={editProductDetails.description}
                     discount={editProductDetails.discount}
@@ -498,6 +504,7 @@ const Product: React.FC<Props> = ({ isPreview = false }) => {
                     childCategory={editProductDetails.childCategory as any}
                     childCategories={allChildCategories}
                     productImages={editProductDetails.images as any ? editProductDetails.images as any : []}
+                    productQueryVariables={productQueryVariables}
                 />
             </ Dialog>
 

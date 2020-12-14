@@ -38,6 +38,7 @@ import { updateCategoryMutationField } from './mutations/updateCategory';
 import { updateUserMutationField } from './mutations/updateUser';
 import { deleteCategoryMutationField } from './mutations/deleteCategory';
 import { createProductMutationField } from './mutations/createProduct';
+import { updateProductMutationField } from './mutations/updateProduct';
 import { Upload } from './scarlarTypes';
 
 const prisma = new PrismaClient();
@@ -89,6 +90,7 @@ export const schema = makeSchema({
         completeOnboardingMutationField,
         createCategoryMutationField,
         createProductMutationField,
+        updateProductMutationField,
         deleteAccountMutationField,
 
         loginMutationField,

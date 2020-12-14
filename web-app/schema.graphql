@@ -370,6 +370,18 @@ type Mutation {
         parent: String
         slug: String
     ): Category!
+    updateProduct(
+        categoryId: ID!
+        description: String!
+        discount: Int!
+        id: String!
+        images: [ProductImageCreateWithoutProductInput!]!
+        name: String!
+        price: Int!
+        salePrice: Int!
+        sku: String!
+        unit: String!
+    ): Product!
     updateUser(id: ID!, name: String, role: String, status: String): User!
 }
 

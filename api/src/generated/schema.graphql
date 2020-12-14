@@ -308,6 +308,7 @@ type Mutation {
   resetPassword(confirmPassword: String, password: String, resetToken: String): User!
   signup(confirmPassword: String, email: String, name: String, password: String): User!
   updateCategory(id: ID!, name: String, parent: String, slug: String): Category!
+  updateProduct(alreadyUploadedImages: [ProductImageCreateWithoutProductInput!]!, categoryId: ID!, description: String!, discount: Int!, id: ID!, images: [ProductImageCreateWithoutProductInput!]!, name: String!, price: Int!, salePrice: Int!, sku: String!, unit: String!): Product!
   updateUser(id: ID!, name: String, role: String, status: String): User!
 }
 

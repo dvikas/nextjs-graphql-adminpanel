@@ -41,3 +41,50 @@ export const CREATE_PRODUCT = gql`
     }
   }
 `;
+
+export const UPDATE_PRODUCT_MUTATION = gql`
+  mutation UPDATE_PRODUCT_MUTATION (
+    $id: ID!
+    $name: String!
+    $description: String!
+    $price: Int!
+    $discount: Int!
+    $salePrice: Int!
+    $sku: String!
+    $unit: String!
+    $categoryId: ID!
+    $images: [ProductImageCreateWithoutProductInput!]!
+    $alreadyUploadedImages: [ProductImageCreateWithoutProductInput!]!
+  ) {
+    updateProduct(
+      id: $id
+      name: $name
+      description: $description
+      discount: $discount
+      salePrice: $salePrice
+      sku: $sku
+      price: $price
+      unit: $unit
+      categoryId: $categoryId
+      images: $images
+      alreadyUploadedImages: $alreadyUploadedImages
+    ) {
+      id
+      name
+      description
+      price
+      discount
+      salePrice
+      sku
+      unit
+      Category {
+        name
+        parent
+      }
+      ProductImages {
+        id
+        image
+      }
+    }
+  }
+`;

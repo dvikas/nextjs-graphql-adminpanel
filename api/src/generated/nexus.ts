@@ -1037,6 +1037,7 @@ export interface NexusGenFieldTypes {
     resetPassword: NexusGenRootTypes['User']; // User!
     signup: NexusGenRootTypes['User']; // User!
     updateCategory: NexusGenRootTypes['Category']; // Category!
+    updateProduct: NexusGenRootTypes['Product']; // Product!
     updateUser: NexusGenRootTypes['User']; // User!
   }
   PageInfo: { // field return type
@@ -1161,6 +1162,19 @@ export interface NexusGenArgTypes {
       name?: string | null; // String
       parent?: string | null; // String
       slug?: string | null; // String
+    }
+    updateProduct: { // args
+      alreadyUploadedImages: NexusGenInputs['ProductImageCreateWithoutProductInput'][]; // [ProductImageCreateWithoutProductInput!]!
+      categoryId: string; // ID!
+      description: string; // String!
+      discount: number; // Int!
+      id: string; // ID!
+      images: NexusGenInputs['ProductImageCreateWithoutProductInput'][]; // [ProductImageCreateWithoutProductInput!]!
+      name: string; // String!
+      price: number; // Int!
+      salePrice: number; // Int!
+      sku: string; // String!
+      unit: string; // String!
     }
     updateUser: { // args
       id: string; // ID!

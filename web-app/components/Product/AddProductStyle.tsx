@@ -54,6 +54,23 @@ export const useStyles = makeStyles((theme: Theme) =>
       display: 'block',
       width: 'auto',
       height: '100%'
-    }
+    },
+    media: {
+      padding: '0 5px',
+      height: '100px',
+      textAlign: 'center',
+      marginTop: '10px',
+      margin: '0 auto',
+    },
+    icon: {
+      color: 'rgba(255, 255, 255, 0.54)',
+    },
+    gridList: {
+      width: 350,
+    },
+    titleBar: {
+      background:
+        'linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%)',
+    },
   })
 )
