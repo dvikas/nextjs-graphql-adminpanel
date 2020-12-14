@@ -86,8 +86,8 @@ const Dashboard = () => {
         <Grid
           item
           lg={6}
-          md={6}
-          xl={3}
+          md={12}
+          xl={9}
           xs={12}
         >
           <SaleCategoryAnalysis className="" />

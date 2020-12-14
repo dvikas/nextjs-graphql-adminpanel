@@ -90,7 +90,7 @@ export default function HeaderUserbox() {
         className="">
         <ListItem alignItems="flex-start" style={{ padding: '0 10px' }}>
           <ListItemAvatar>
-            <Avatar alt="Vikas Dwivedi" src="/images/user.jpg" />
+            <Avatar alt="John Doe" src="/images/user.jpg" />
           </ListItemAvatar>
           <ListItemText
             style={{ textTransform: 'capitalize' }}
@@ -141,11 +141,11 @@ export default function HeaderUserbox() {
               </div>
             </div>
             <Divider className={clsx(classes.mt2, classes.w100)} />
-            <ListItem button>My Account</ListItem>
-            <ListItem button>Profile settings</ListItem>
-            <ListItem button>Active tasks</ListItem>
+
+            <ListItem button component="a" href="/settings">Profile settings</ListItem>
+
             <Divider className="w-100" />
-            <ListItem className="d-block1 rounded-bottom1 px-3 pt-3 pb-0 text-left">
+            <ListItem className="">
               <Button
                 onClick={() => {
                   logout();

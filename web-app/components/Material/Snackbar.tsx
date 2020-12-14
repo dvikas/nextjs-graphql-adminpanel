@@ -5,7 +5,6 @@ import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 
 export default function ShowSnackbar() {
-  console.log('vikas')
 
   const [open, setOpen] = React.useState(true);
   setOpen(true);
