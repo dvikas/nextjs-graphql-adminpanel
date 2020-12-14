@@ -78,8 +78,6 @@ const EditProduct: React.FC<EditProductForm> = ({
     productQueryVariables,
     handleEditDialogOpen,
     ...rest }) => {
-    // console.log('productImages', productImages)
-    // console.log('product ID', id)
 
     const classes = useStyles();
 
@@ -140,7 +138,7 @@ const EditProduct: React.FC<EditProductForm> = ({
                     body: data
                 }).then(async (res) => {
                     const resFile = await res.json();
-                    console.log('resFile', resFile)
+
                     if (resFile) {
                         const url = resFile.secure_url
                         const length = arr1.push({ image: url })
@@ -212,12 +210,9 @@ const EditProduct: React.FC<EditProductForm> = ({
         }
     }
 
-    useEffect(() => () => {
-        // Make sure to revoke the data uris to avoid memory leaks
-        // files.forEach((file: UploadFile) => URL.revokeObjectURL(file.preview));
-        // console.log('Use Effect', files.length, totalFilesUploaded.length)
-        // setFormSubmittingStatus(files.length !== totalFilesUploaded.length)
-    }, [files, totalFilesToUpload, totalFilesUploaded]);
+    // useEffect(() => () => {
+
+    // }, [files, totalFilesToUpload, totalFilesUploaded]);
 
     const [updateProduct] = useMutation<UPDATE_PRODUCT_MUTATION_updateProduct, UPDATE_PRODUCT_MUTATIONVariables>(UPDATE_PRODUCT_MUTATION, {
         onError: (error) => {
@@ -235,8 +230,6 @@ const EditProduct: React.FC<EditProductForm> = ({
             cacheData.products.nodes.map((item: any) => {
 
                 if (item.id === returnedData.id) {
-                    console.log('item', item)
-                    console.log('returnedData', returnedData)
                     item.name = returnedData.name
                     item.ProductImages = returnedData.ProductImages
                     item.description = returnedData.description
@@ -255,14 +248,8 @@ const EditProduct: React.FC<EditProductForm> = ({
     });
 
     const createNewProduct = async (data: NewProductForm, resetForm: Function) => {
-        // console.log('Called fx createNewProduct')
         // API call integration will be here. Handle success / error response accordingly.
         if (data) {
-
-            console.log('NewProductForm Data', data);
-            console.log('totalFilesUploaded', totalFilesUploaded);
-            console.log('alreadyUploadedImages', alreadyUploadedImages);
-
             const newProduct = {
                 id: data.id,
                 name: data.prodName,
