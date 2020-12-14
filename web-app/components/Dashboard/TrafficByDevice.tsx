@@ -1,7 +1,9 @@
 import React from 'react';
 import clsx from 'clsx';
 import PropTypes from 'prop-types';
-import { Doughnut } from 'react-chartjs-2';
+import loadable from '@loadable/component'
+const Chart = loadable(() => import('react-apexcharts'));
+
 import {
   Box,
   Card,
@@ -34,117 +36,61 @@ const TrafficByDevice: React.FC<Props> = ({ className, ...rest }) => {
   const classes = useStyles();
   const theme = useTheme();
 
-  const data = {
-    datasets: [
-      {
-        data: [63, 15, 22],
-        backgroundColor: [
-          colors.indigo[500],
-          colors.red[600],
-          colors.orange[600]
-        ],
-        borderWidth: 1,
-        borderColor: colors.common.white,
-        hoverBorderColor: colors.common.white
-      }
-    ],
-    labels: ['Desktop', 'Tablet', 'Mobile']
-  };
-
+  const series = [30, 10, 60]
+  const label = ['Tablet', 'Mobile', 'Laptop']
   const options: any = {
-    animation: true,
-    cutoutPercentage: 80,
-    layout: { padding: 0 },
+    chart: {
+      type: 'donut',
+    },
+    plotOptions: {
+      pie: {
+        startAngle: -90,
+        endAngle: 270
+      }
+    },
+    dataLabels: {
+      enabled: true
+    },
+    fill: {
+      type: 'gradient',
+    },
     legend: {
-      display: false
+      formatter: function (val: any, opts: any) {
+        return label[opts.seriesIndex]
+      }
     },
-    maintainAspectRatio: false,
-    responsive: true,
-    tooltips: {
-      backgroundColor: theme.palette.background.default,
-      bodyFontColor: theme.palette.text.secondary,
-      borderColor: theme.palette.divider,
-      borderWidth: 5,
-      enabled: true,
-      footerFontColor: theme.palette.text.secondary,
-      intersect: false,
-      mode: 'index',
-      titleFontColor: theme.palette.text.primary
-    }
-  };
-
-  const devices = [
-    {
-      title: 'Desktop',
-      value: 63,
-      icon: LaptopMacIcon,
-      color: colors.indigo[500]
+    title: {
+      text: ''
     },
-    {
-      title: 'Tablet',
-      value: 15,
-      icon: TabletIcon,
-      color: colors.red[600]
-    },
-    {
-      title: 'Mobile',
-      value: 23,
-      icon: PhoneIcon,
-      color: colors.orange[600]
-    }
-  ];
+    responsive: [{
+      breakpoint: 2480,
+      options: {
+        chart: {
+          width: 370
+        },
+        legend: {
+          position: 'bottom'
+        }
+      }
+    }]
+  }
 
   return (
     <Card
       className={clsx(classes.root, className)}
       {...rest}
     >
-      <CardHeader title="Traffic by Device" />
+      <CardHeader title="Device Usage" />
       <Divider />
       <CardContent>
-        <Box
-          height={300}
-          position="relative"
-        >
-          <Doughnut
-            data={data}
+        <Box>
+          <Chart
             options={options}
+            series={series}
+            type="donut" width={420}
           />
         </Box>
-        <Box
-          display="flex"
-          justifyContent="center"
-          mt={2}
-        >
-          {devices.map(({
-            color,
-            icon: Icon,
-            title,
-            value
-          }) => (
-              <Box
-                key={title}
-                p={1}
-                textAlign="center"
-              >
-                <Icon color="action" />
-                <Typography
-                  color="textPrimary"
-                  variant="body1"
-                >
-                  {title}
-                </Typography>
-                <Typography
-                  style={{ color }}
-                  variant="h6"
-                  className={classes.devicePercent}
-                >
-                  {value}
-                %
-              </Typography>
-              </Box>
-            ))}
-        </Box>
+
       </CardContent>
     </Card>
   );
