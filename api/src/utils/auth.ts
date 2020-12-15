@@ -111,6 +111,7 @@ export const authenticationStrategy = (prisma: PrismaClient): GoogleStrategy => 
                 // If the user doesn't exist, create a new user
                 const newUser = await prisma.user.create({
                     data: {
+                        name: 'User',
                         googleId: profile.id,
                         email: profile._json.email,
                         hasVerifiedEmail: true,

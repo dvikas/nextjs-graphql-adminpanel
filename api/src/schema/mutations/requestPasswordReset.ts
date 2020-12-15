@@ -1,7 +1,7 @@
 import { promisify } from 'util';
 import { randomBytes } from 'crypto';
 import { mutationField, stringArg } from '@nexus/schema';
-import { sendEmail } from '../../utils/mail';
+// import { sendEmail } from '../../utils/mail';
 import analytics from '../../utils/analytics';
 const { transport, makeANiceEmail } = require('../../mail');
 
