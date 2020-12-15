@@ -13,6 +13,7 @@ export const updateUserMutationField = mutationField('updateUser', {
     resolve: async (_, { id, name, role, status }, ctx) => {
         verifyUserIsAuthenticated(ctx.user);
 
+
         // Then create the User entry in Prisma, storing the S3 file info
         const updatedUser = await ctx.prisma.user.update({
             where: {
