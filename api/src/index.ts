@@ -206,7 +206,7 @@ server.start(
             credentials: true,
             origin: ['http://local.app.nextgraphqladmin.com:3000', commonFrontendUrl],
         },
-        port: process.env.API_PORT,
+        port: process.env.PORT || process.env.API_PORT,
     },
     // eslint-disable-next-line no-console
     () => console.log(`Server running at ${commonBackenddUrl}`)
