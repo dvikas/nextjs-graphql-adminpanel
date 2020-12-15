@@ -55,85 +55,85 @@ const handleStripeWebhook: RequestHandler = async (request, response) => {
     const event = stripe.webhooks.constructEvent(request.body, sig, stripeWebhookSecret);
 
     // Handle the event
-    switch (event.type) {
-        case 'invoice.payment_succeeded':
-            // eslint-disable-next-line no-console
-            console.log('Upgrading user to premium tier');
-            const setIsPremiumData = event.data.object as invoices.IInvoice;
-            if (setIsPremiumData.customer && typeof setIsPremiumData.customer === 'string') {
-                // Make sure there is a user associated with the stripe ID, otherwise make sure to create/update the billing info
-                // of of user with the customer ID provided by stripe. This happens when gifting people premium memberships through
-                // the stripe UI
-                const billingInfo = await prisma.billingInfo.findOne({
-                    where: { stripeCustomerId: setIsPremiumData.customer },
-                });
-                if (billingInfo === null) {
-                    await prisma.billingInfo.create({
-                        data: {
-                            User: { connect: { email: setIsPremiumData.customer_email } },
-                            stripeCustomerId: setIsPremiumData.customer,
-                        },
-                    });
-                }
-                await prisma.billingInfo.update({
-                    where: { stripeCustomerId: setIsPremiumData.customer },
-                    data: {
-                        isPremiumActive: true,
-                    },
-                });
-                analytics.track({
-                    eventType: 'Invoice paid',
-                    eventProperties: {
-                        stripeCustomerId: setIsPremiumData.customer,
-                    },
-                });
-            }
-            break;
-        case 'invoice.payment_failed':
-        case 'subscription_schedule.canceled':
-        case 'customer.subscription.deleted':
-            // eslint-disable-next-line no-console
-            console.log('Downgrading user to free tier');
-            const unsetIsPremiumData = event.data.object as invoices.IInvoice;
-            if (unsetIsPremiumData.customer && typeof unsetIsPremiumData.customer === 'string') {
-                await prisma.billingInfo.update({
-                    where: { stripeCustomerId: unsetIsPremiumData.customer },
-                    data: {
-                        isPremiumActive: false,
-                        billingFrequency: null,
-                        endOfBillingPeriod: null,
-                        startOfBillingPeriod: null,
-                        stripeSubscriptionId: null,
-                        willCancelAtEndOfPeriod: false,
-                    },
-                });
+    // switch (event.type) {
+    // case 'invoice.payment_succeeded':
+    //     // eslint-disable-next-line no-console
+    //     console.log('Upgrading user to premium tier');
+    //     const setIsPremiumData = event.data.object as invoices.IInvoice;
+    //     if (setIsPremiumData.customer && typeof setIsPremiumData.customer === 'string') {
+    //         // Make sure there is a user associated with the stripe ID, otherwise make sure to create/update the billing info
+    //         // of of user with the customer ID provided by stripe. This happens when gifting people premium memberships through
+    //         // the stripe UI
+    //         const billingInfo = await prisma.billingInfo.findOne({
+    //             where: { stripeCustomerId: setIsPremiumData.customer },
+    //         });
+    //         if (billingInfo === null) {
+    //             await prisma.billingInfo.create({
+    //                 data: {
+    //                     User: { connect: { email: setIsPremiumData.customer_email } },
+    //                     stripeCustomerId: setIsPremiumData.customer,
+    //                 },
+    //             });
+    //         }
+    //         await prisma.billingInfo.update({
+    //             where: { stripeCustomerId: setIsPremiumData.customer },
+    //             data: {
+    //                 isPremiumActive: true,
+    //             },
+    //         });
+    //         analytics.track({
+    //             eventType: 'Invoice paid',
+    //             eventProperties: {
+    //                 stripeCustomerId: setIsPremiumData.customer,
+    //             },
+    //         });
+    //     }
+    // break;
+    // case 'invoice.payment_failed':
+    // case 'subscription_schedule.canceled':
+    // case 'customer.subscription.deleted':
+    // eslint-disable-next-line no-console
+    // console.log('Downgrading user to free tier');
+    // const unsetIsPremiumData = event.data.object as invoices.IInvoice;
+    // if (unsetIsPremiumData.customer && typeof unsetIsPremiumData.customer === 'string') {
+    //     await prisma.billingInfo.update({
+    //         where: { stripeCustomerId: unsetIsPremiumData.customer },
+    //         data: {
+    //             isPremiumActive: false,
+    //             billingFrequency: null,
+    //             endOfBillingPeriod: null,
+    //             startOfBillingPeriod: null,
+    //             stripeSubscriptionId: null,
+    //             willCancelAtEndOfPeriod: false,
+    //         },
+    //     });
 
-                analytics.track({
-                    eventType: 'Downgrading user to free tier',
-                    eventProperties: {
-                        stripeCustomerId: unsetIsPremiumData.customer,
-                    },
-                });
-            }
-            break;
-        case 'customer.deleted':
-            // eslint-disable-next-line no-console
-            console.log('Downgrading user to free tier');
-            const unsetCustomerData = event.data.object as customers.ICustomer;
-            if (unsetCustomerData.id) {
-                await prisma.billingInfo.delete({ where: { stripeCustomerId: unsetCustomerData.id } });
-            }
-            analytics.track({
-                eventType: 'Downgrading user to free tier',
-                eventProperties: {
-                    stripeCustomerId: unsetCustomerData.id,
-                },
-            });
-            break;
-        default:
-            // Unexpected event type
-            return response.status(400).end();
-    }
+    //     analytics.track({
+    //         eventType: 'Downgrading user to free tier',
+    //         eventProperties: {
+    //             stripeCustomerId: unsetIsPremiumData.customer,
+    //         },
+    //     });
+    // }
+    // break;
+    // case 'customer.deleted':
+    //     // eslint-disable-next-line no-console
+    //     console.log('Downgrading user to free tier');
+    //     const unsetCustomerData = event.data.object as customers.ICustomer;
+    //     if (unsetCustomerData.id) {
+    //         await prisma.billingInfo.delete({ where: { stripeCustomerId: unsetCustomerData.id } });
+    //     }
+    //     analytics.track({
+    //         eventType: 'Downgrading user to free tier',
+    //         eventProperties: {
+    //             stripeCustomerId: unsetCustomerData.id,
+    //         },
+    //     });
+    //     break;
+    //     default:
+    //         // Unexpected event type
+    //         return response.status(400).end();
+    // }
 
     // Return a response to acknowledge receipt of the event
     response.json({ received: true });
