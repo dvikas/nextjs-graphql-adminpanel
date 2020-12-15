@@ -104,7 +104,11 @@ export const schema = makeSchema({
 
     ],
     plugins: [
-        nexusPrismaPlugin(),
+        // nexusPrismaPlugin(),
+        nexusPrismaPlugin({
+            // Fixes the Cannot find NexusPrisma issue
+            outputs: { typegen: __dirname + '/generated/index.ts' },
+        }),
         connectionPlugin({
             includeNodesField: true,
             disableBackwardPagination: true,
