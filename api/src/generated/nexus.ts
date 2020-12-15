@@ -15,12 +15,14 @@ declare global {
   interface NexusGenCustomOutputMethods<TypeName extends string> {
     upload<FieldName extends string>(fieldName: FieldName, ...opts: core.ScalarOutSpread<TypeName, FieldName>): void // "Upload";
     connectionField<FieldName extends string>(
-            fieldName: FieldName, 
-            config: connectionPluginCore.ConnectionFieldConfig<TypeName, FieldName> 
-          ): void
+      fieldName: FieldName,
+      config: connectionPluginCore.ConnectionFieldConfig<TypeName, FieldName>
+    ): void
   }
 }
 declare global {
+
+
   interface NexusGenCustomOutputProperties<TypeName extends string> {
     crud: NexusPrisma<TypeName, 'crud'>
     model: NexusPrisma<TypeName, 'model'>
@@ -28,7 +30,7 @@ declare global {
 }
 
 declare global {
-  interface NexusGen extends NexusGenTypes {}
+  interface NexusGen extends NexusGenTypes { }
 }
 
 export interface NexusGenInputs {
@@ -1226,7 +1228,7 @@ export interface NexusGenArgTypes {
 export interface NexusGenAbstractResolveReturnTypes {
 }
 
-export interface NexusGenInheritedFields {}
+export interface NexusGenInheritedFields { }
 
 export type NexusGenObjectNames = "Category" | "CategoryEdge" | "GoogleMapsLocation" | "Mutation" | "PageInfo" | "Product" | "ProductEdge" | "ProductImage" | "Query" | "QueryCategories_Connection" | "QueryProducts_Connection" | "QueryUsers_Connection" | "User" | "UserEdge";
 
@@ -1266,7 +1268,7 @@ declare global {
   interface NexusGenPluginTypeConfig<TypeName extends string> {
   }
   interface NexusGenPluginFieldConfig<TypeName extends string, FieldName extends string> {
-    
+
   }
   interface NexusGenPluginSchemaConfig {
   }
