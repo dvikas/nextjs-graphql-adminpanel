@@ -7,7 +7,7 @@
         "postinstall": "yarn generate",
         "start": "ts-node --files src/index.ts",
         "dev": "ts-node-dev --no-notify --respawn --transpileOnly ./src/",
-        "generate": "yarn generate:prisma && yarn generate:nexus",
+        "generate": "yarn generate:prisma && yarn generate:nexus && yarn seed",
         "generate:prisma": "prisma generate",
         "generate:nexus": "ts-node --transpile-only src/schema",
         "stripe": "stripe listen --forward-to local.api.nextgraphqladmin.com:4000/stripe",
