@@ -20,8 +20,8 @@ export const updateUserMutationField = mutationField('updateUser', {
             },
             data: {
                 name,
-                role,
-                status
+                // role,
+                // status
             },
         });
 

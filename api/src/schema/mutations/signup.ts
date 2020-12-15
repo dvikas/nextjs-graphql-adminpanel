@@ -37,7 +37,7 @@ export const signupMutationField = mutationField('signup', {
 
         const user = await ctx.prisma.user.create({
             data: {
-                name,
+                name: 'test',
                 email,
                 password: hashedPassword,
                 emailConfirmationToken,
