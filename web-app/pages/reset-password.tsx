@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-// import { Text, Input, Button, useToast, InputGroup, InputRightElement } from '@robertcooper/chakra-ui-core';
 
 import { Formik, Form, FormikConfig } from 'formik';
 import * as Yup from 'yup';

@@ -17,7 +17,7 @@ import * as Yup from 'yup'
 
 import { useDropzone } from 'react-dropzone';
 import { useQuery, useMutation, useLazyQuery } from '@apollo/react-hooks';
-import { UPDATE_PRODUCT_MUTATION_updateProduct, UPDATE_PRODUCT_MUTATIONVariables } from '../../graphql/generated/UPDATE_PRODUCT_MUTATION';
+import { UPDATE_PRODUCT_MUTATION as UPDATE_PRODUCT_MUTATION_GEN, UPDATE_PRODUCT_MUTATIONVariables } from '../../graphql/generated/UPDATE_PRODUCT_MUTATION';
 import Message, { TOGGLE_SNACKBAR_MUTATION } from '../Material/SuccessMessage';
 import { GET_CATEGORIES } from '../Category/CategoryQuery';
 import { UPDATE_PRODUCT_MUTATION } from './ProductMutation';
@@ -27,6 +27,7 @@ import { useStyles } from './AddProductStyle';
 import { ParentCategoriesWithIcon as ParentCategories } from '../Category/ParentCategories'
 
 interface NewProductForm {
+    id: string
     prodName: string
     description: string
     discount: number
@@ -170,12 +171,12 @@ const EditProduct: React.FC<EditProductForm> = ({
     ));
 
     const removeExistingImage = (index: number, allImages: ImageProperties[]) => {
-        const allImagesData = [...allImages];
-        allImagesData.splice(index, 1);
-        setAlreadyUploadedImages(allImagesData);
+        // const allImagesData = [...allImages];
+        // allImagesData.splice(index, 1);
+        // setAlreadyUploadedImages(allImagesData);
     };
 
-    const ProductImagesSection = ({ images }) => {
+    const ProductImagesSection: React.FC<any> = ({ images }) => {
 
         if (images.length > 0) {
             return <GridList cellHeight={180} className={classes.gridList}>
@@ -191,9 +192,9 @@ const EditProduct: React.FC<EditProductForm> = ({
                                     }}
                                     actionIcon={
                                         <IconButton
-                                            onClick={e => {
-                                                removeExistingImage(index, alreadyUploadedImages)
-                                            }}
+                                            // onClick={e => {
+                                            //     removeExistingImage(index, alreadyUploadedImages)
+                                            // }}
                                             className={classes.icon}>
                                             <DeleteOutlineIcon />
                                         </IconButton>
@@ -214,7 +215,7 @@ const EditProduct: React.FC<EditProductForm> = ({
 
     // }, [files, totalFilesToUpload, totalFilesUploaded]);
 
-    const [updateProduct] = useMutation<UPDATE_PRODUCT_MUTATION_updateProduct, UPDATE_PRODUCT_MUTATIONVariables>(UPDATE_PRODUCT_MUTATION, {
+    const [updateProduct] = useMutation<UPDATE_PRODUCT_MUTATION_GEN, UPDATE_PRODUCT_MUTATIONVariables>(UPDATE_PRODUCT_MUTATION, {
         onError: (error) => {
             console.log('error-UPDATE_PRODUCT_MUTATION:', error)
         },
@@ -226,24 +227,26 @@ const EditProduct: React.FC<EditProductForm> = ({
         update(cache, { data }) {
 
             const cacheData: any = cache.readQuery({ query: GET_PRODUCTS, variables: productQueryVariables })
-            const returnedData = data.updateProduct;
-            cacheData.products.nodes.map((item: any) => {
+            if (data) {
+                const returnedData = data.updateProduct;
+                cacheData.products.nodes.map((item: any) => {
 
-                if (item.id === returnedData.id) {
-                    item.name = returnedData.name
-                    item.ProductImages = returnedData.ProductImages
-                    item.description = returnedData.description
-                    item.discount = returnedData.discount
-                    item.name = returnedData.name
-                    item.price = returnedData.price
-                    item.salePrice = returnedData.salePrice
-                    item.sku = returnedData.sku
-                    item.unit = returnedData.unit
-                    // Close Dialog in last to prevent error of
-                    // React state update on an unmounted component.
-                    handleEditDialogOpen(false);
-                }
-            });
+                    if (item.id === returnedData.id) {
+                        item.name = returnedData.name
+                        item.ProductImages = returnedData.ProductImages
+                        item.description = returnedData.description
+                        item.discount = returnedData.discount
+                        item.name = returnedData.name
+                        item.price = returnedData.price
+                        item.salePrice = returnedData.salePrice
+                        item.sku = returnedData.sku
+                        item.unit = returnedData.unit
+                        // Close Dialog in last to prevent error of
+                        // React state update on an unmounted component.
+                        handleEditDialogOpen(false);
+                    }
+                });
+            }
         }
     });
 

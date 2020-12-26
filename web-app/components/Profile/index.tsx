@@ -51,7 +51,7 @@ const ProfileDetails = () => {
     phone: '9877899876'
   });
 
-  const handleChange = (event) => {
+  const handleChange: React.ChangeEventHandler<HTMLInputElement> = (event) => {
     setValues({
       ...values,
       [event.target.name]: event.target.value
