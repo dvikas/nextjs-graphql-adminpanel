@@ -203,8 +203,8 @@ server.express.use(((err, req, res, _next) => {
 const fs = require('fs')
 
 var options = {
-    key: fs.readFileSync('./local.admin-panel.key'),
-    cert: fs.readFileSync('./local.admin-panel.crt')
+    key: fs.readFileSync(process.env.HTTPS_KEY),
+    cert: fs.readFileSync(process.env.HTTPS_CERT)
 };
 // Start the server
 server.start(
