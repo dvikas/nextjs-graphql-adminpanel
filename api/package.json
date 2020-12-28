@@ -42,6 +42,7 @@
         "uuid": "^3.3.3"
     },
     "devDependencies": {
+        "fs": "0.0.1-security",
         "@prisma/cli": "2.0.0-beta.1",
         "@types/bcrypt": "^3.0.0",
         "@types/cookie-parser": "^1.4.2",

@@ -199,6 +199,13 @@ server.express.use(((err, req, res, _next) => {
     }
 }) as ErrorRequestHandler);
 
+
+const fs = require('fs')
+
+var options = {
+    key: fs.readFileSync('./local.admin-panel.key'),
+    cert: fs.readFileSync('./local.admin-panel.crt')
+};
 // Start the server
 server.start(
     {
@@ -206,6 +213,7 @@ server.start(
             credentials: true,
             origin: ['http://local.app.nextgraphqladmin.com:3000', commonFrontendUrl],
         },
+        https: options,
         port: process.env.PORT || process.env.API_PORT,
     },
     // eslint-disable-next-line no-console
