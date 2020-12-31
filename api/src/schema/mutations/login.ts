@@ -28,7 +28,8 @@ export const loginMutationField = mutationField('login', {
         ctx.response.cookie('token', token, {
             httpOnly: true,
             maxAge: cookieDuration,
-            sameSite: 'none'
+            sameSite: 'none',
+            secure: true
             // domain: process.env.API_COOKIE_DOMAIN,
         });
 
