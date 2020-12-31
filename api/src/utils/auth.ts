@@ -33,14 +33,14 @@ const handleAuthentication = ({
 
     // Attempt to set the redirectUrl to the value provide by the `redirectUrl` query in
     // the initial call to /auth/google
-    try {
-        const { state } = req.query;
-        const redirectUrlFromState = JSON.parse(state).redirectUrl;
-        // Make sure no one tries to redirect to a malicious URL
-        if (/^https?:\/\/.*\.nextgraphqladmin.com(:[0-9]{4})?$/.test(redirectUrlFromState)) {
-            redirectUrl = redirectUrlFromState;
-        }
-    } catch { }
+    // try {
+    //     const { state } = req.query;
+    //     const redirectUrlFromState = JSON.parse(state).redirectUrl;
+    //     // Make sure no one tries to redirect to a malicious URL
+    //     if (/^https?:\/\/.*\.nextgraphqladmin.com(:[0-9]{4})?$/.test(redirectUrlFromState)) {
+    //         redirectUrl = redirectUrlFromState;
+    //     }
+    // } catch { }
     if (error) {
         res.locals.errorType = 'AuthenticationError';
         return next(error);

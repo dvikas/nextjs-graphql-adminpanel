@@ -28,7 +28,7 @@ export const loginMutationField = mutationField('login', {
         ctx.response.cookie('token', token, {
             httpOnly: true,
             maxAge: cookieDuration,
-            domain: process.env.API_COOKIE_DOMAIN,
+            // domain: process.env.API_COOKIE_DOMAIN,
         });
 
         analytics.track({ eventType: 'Login', userId: user.id, eventProperties: { method: 'Password' } });
