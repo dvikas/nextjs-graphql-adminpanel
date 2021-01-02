@@ -29,7 +29,7 @@ export const loginMutationField = mutationField('login', {
             httpOnly: true,
             maxAge: cookieDuration,
             sameSite: 'none',
-            secure: true
+            secure: true,
             // domain: process.env.API_COOKIE_DOMAIN,
         });
 

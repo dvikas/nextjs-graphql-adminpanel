@@ -6,7 +6,7 @@ export const logoutMutationField = mutationField('logout', {
     resolve: (_, _args, ctx) => {
         verifyEnvironmentVariables(process.env.API_COOKIE_DOMAIN, 'API_COOKIE_DOMAIN');
         ctx.response.clearCookie('token', {
-            domain: process.env.API_COOKIE_DOMAIN,
+            // domain: process.env.API_COOKIE_DOMAIN,
         });
 
         return true;

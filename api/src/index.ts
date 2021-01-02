@@ -178,7 +178,7 @@ server.express.use((req, res, next) => {
             // If the JWT is invalid remove the cookie in the response so the front-end redirects
             // the user to the login page
             res.clearCookie('token', {
-                domain: process.env.API_COOKIE_DOMAIN,
+                // domain: process.env.API_COOKIE_DOMAIN,
             });
         }
     }

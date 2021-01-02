@@ -54,7 +54,9 @@ const handleAuthentication = ({
     res.cookie('token', token, {
         httpOnly: true,
         maxAge: cookieDuration,
-        domain: process.env.API_COOKIE_DOMAIN,
+        sameSite: 'none',
+        secure: true,
+        // domain: process.env.API_COOKIE_DOMAIN,
     });
     if (redirectUrl === undefined) {
         throw Error('Invalid redirect URL');

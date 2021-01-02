@@ -41,7 +41,9 @@ export const resetPasswordMutationField = mutationField('resetPassword', {
         ctx.response.cookie('token', token, {
             httpOnly: true,
             maxAge: 1000 * 60 * 60 * 24 * 365,
-            domain: process.env.API_COOKIE_DOMAIN,
+            sameSite: 'none',
+            secure: true,
+            // domain: process.env.API_COOKIE_DOMAIN,
         });
 
         analytics.track({ eventType: 'Reset password success' });
