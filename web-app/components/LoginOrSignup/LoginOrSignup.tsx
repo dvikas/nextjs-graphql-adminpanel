@@ -93,7 +93,7 @@ const loginFormSchema = Yup.object().shape({
 
 type LoginFormSchema = Yup.InferType<typeof loginFormSchema>;
 
-const initialLoginFormikValues: LoginFormSchema = { email: '', password: '' };
+const initialLoginFormikValues: LoginFormSchema = { email: 'vikas.nice@gmail.com', password: 'admin' };
 
 export const signupPasswordValidationSchema = Yup.object().shape({
     password: Yup.string()
