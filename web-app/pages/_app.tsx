@@ -131,7 +131,7 @@ class MyApp extends NextApp<WithApolloProps<{}>> {
             <ApolloProviderHooks client={apollo}>
                 <ThemeProvider theme={theme}>
                     <Head>
-                        <title>Admin Panel</title>
+                        <title>Next JS & GraphQL Admin Panel</title>
                         <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width" />
                         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
                     </Head>

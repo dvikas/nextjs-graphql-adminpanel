@@ -1,7 +1,7 @@
 {
     "name": "frontend",
     "version": "0.0.0",
-    "description": "Front-end for Admin Panel",
+    "description": "Front-end for Next JS Apollo GraphQL Typescript Admin Panel",
     "private": true,
     "scripts": {
         "test": "jest",
@@ -14,7 +14,7 @@
         "deploy:dev": "dotenv -e now.env.dev -- now --prod",
         "deploy:prod": "dotenv -e now.env.prod -- now --prod"
     },
-    "author": "Vikas",
+    "author": "Vikas Dwivedi",
     "license": "MIT",
     "jest": {
         "testPathIgnorePatterns": [

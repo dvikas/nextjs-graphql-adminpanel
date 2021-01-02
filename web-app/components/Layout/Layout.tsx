@@ -301,7 +301,7 @@ const Layout: React.FC<Props> = ({ children, ...rest }) => {
 
         <Box className={classes.toolbar} color="text.primary" style={{ justifyContent: 'space-evenly' }} >
           <Avatar alt="Brand" src="/images/adminLogo.png" />
-          <Typography variant="h5">&nbsp;Adeptra</Typography>
+          <Typography variant="h5">&nbsp;Next Admin</Typography>
           <Grid style={{ justifyContent: 'flex-end' }}>
             <IconButton onClick={handleDrawerClose}>
               {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
