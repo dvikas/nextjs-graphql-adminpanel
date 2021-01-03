@@ -20,7 +20,13 @@ export const createCategoryMutationField = mutationField('createCategory', {
                 parent,
             },
         });
-
+        analytics.track({
+            eventType: 'Category created',
+            userId: ctx.user.id,
+            eventProperties: {
+                id: createdCategory.id,
+            },
+        });
         return createdCategory;
     },
 });

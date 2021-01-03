@@ -10,10 +10,10 @@ export const deleteAccountMutationField = mutationField('deleteAccount', {
     resolve: async (_, { id }, ctx) => {
         verifyUserIsAuthenticated(ctx.user);
 
-        const Category = await ctx.prisma.user.findOne({
+        const User = await ctx.prisma.user.findOne({
             where: { id }
         });
-        if (Category === null) {
+        if (User === null) {
             throw Error('User not found');
         }
         const deletedUser = await ctx.prisma.user.delete({ where: { id } });

@@ -33,7 +33,6 @@ export const updateProductMutationField = mutationField('updateProduct', {
             where: { id: ctx.user.id }
         });
 
-        ///////////////////////////////////////////
         const currentImages = await ctx.prisma.productImage.findMany({
             where: { productId: id },
         });
@@ -47,7 +46,6 @@ export const updateProductMutationField = mutationField('updateProduct', {
 
         const imagesToCreate = images.filter((image) => currentImages.every((c) => c.id !== image.id));
 
-        ///////////////////////////////////////////
         const product = await ctx.prisma.product.update({
             where: {
                 id,
