@@ -28,7 +28,9 @@ export const updateProductMutationField = mutationField('updateProduct', {
     // name  description price discount salePrice sku unit category* user*
     resolve: async (_, { id, name, description, price, discount, salePrice, sku, unit, categoryId, images, alreadyUploadedImages }, ctx) => {
         verifyUserIsAuthenticated(ctx.user);
-
+        if (process.env.IS_DEMO_ACCOUNT === 'true') {
+            throw Error('Sorry, you can\'t do update or delete in DEMO account');
+        }
         const user = await ctx.prisma.user.findOne({
             where: { id: ctx.user.id }
         });

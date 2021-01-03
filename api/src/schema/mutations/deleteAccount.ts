@@ -9,7 +9,9 @@ export const deleteAccountMutationField = mutationField('deleteAccount', {
     },
     resolve: async (_, { id }, ctx) => {
         verifyUserIsAuthenticated(ctx.user);
-
+        if (process.env.IS_DEMO_ACCOUNT === 'true') {
+            throw Error('Sorry, you can\'t do update or delete in DEMO account');
+        }
         const User = await ctx.prisma.user.findOne({
             where: { id }
         });

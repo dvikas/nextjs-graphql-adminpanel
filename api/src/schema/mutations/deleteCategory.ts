@@ -10,7 +10,9 @@ export const deleteCategoryMutationField = mutationField('deleteCategory', {
     },
     resolve: async (_, { id }, ctx) => {
         verifyUserIsAuthenticated(ctx.user);
-
+        if (process.env.IS_DEMO_ACCOUNT === 'true') {
+            throw Error('Sorry, you can\'t do update or delete in DEMO account');
+        }
         const Category = await ctx.prisma.category.findOne({
             where: { id }
         });

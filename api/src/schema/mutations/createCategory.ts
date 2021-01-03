@@ -11,7 +11,9 @@ export const createCategoryMutationField = mutationField('createCategory', {
     },
     resolve: async (_, { name, slug, parent }, ctx) => {
         verifyUserIsAuthenticated(ctx.user);
-
+        if (process.env.IS_DEMO_ACCOUNT === 'true') {
+            throw Error('Sorry, you can\'t do update or delete in DEMO account');
+        }
         // Then create the Category entry in Prisma, storing the S3 file info
         const createdCategory = await ctx.prisma.category.create({
             data: {
