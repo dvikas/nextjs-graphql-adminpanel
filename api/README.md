@@ -31,7 +31,7 @@ Must use **yarn** in order to use *yarn.lock*. (Do not delete `yarn.lock`)
 
 ### Environment variables
 
-Copy `.env.local` and create `.env` file. Local environment variables are set in the `.env` file.
+Copy `.env.sample` and create `.env` file. Local environment variables are set in the `.env` file.
 
 ### Starting the server
 
