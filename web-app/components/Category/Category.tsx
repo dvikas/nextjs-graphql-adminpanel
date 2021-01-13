@@ -130,12 +130,12 @@ const Category: React.FC = () => {
                                     messageMutation({
                                         variables: { msg: 'Updated successfully', type: 'success' }
                                     })
-                                    resolve();
+                                    resolve(true);
                                 }).catch(err => {
                                     messageMutation({
                                         variables: { msg: err.message, type: 'error' }
                                     })
-                                    resolve();
+                                    resolve(false);
                                 });
                             })
                             return dt
@@ -145,9 +145,15 @@ const Category: React.FC = () => {
                                 deleteCategoryMutation({
                                     variables: { id: oldData.id }
                                 }).then(data => {
-                                    resolve();
+                                    messageMutation({
+                                        variables: { msg: 'Deleted successfully', type: 'success' }
+                                    })
+                                    resolve(true);
                                 }).catch(err => {
-                                    alert(err.message);
+                                    messageMutation({
+                                        variables: { msg: err.message, type: 'error' }
+                                    })
+                                    resolve(false);
                                 });
                             });
                             return dt;

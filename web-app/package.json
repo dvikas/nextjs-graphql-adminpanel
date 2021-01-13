@@ -10,7 +10,7 @@
         "apollo:download": "apollo client:download-schema schema.graphql && yarn --cwd .. install && yarn --cwd .. prettier --config .prettierrc.js --write schema.graphql && yarn apollo:codegen",
         "apollo:codegen": "rm -rf graphql/generated/ && yarn run apollo client:codegen --globalTypesFile=graphql/generated/graphql-global-types.ts --target=typescript --outputFlat graphql/generated/",
         "apollo:watch": "yarn apollo:codegen --watch",
-        "build": "next build",
+        "build": "next build && next export",
         "deploy:dev": "dotenv -e now.env.dev -- now --prod",
         "deploy:prod": "dotenv -e now.env.prod -- now --prod"
     },

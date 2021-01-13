@@ -217,7 +217,9 @@ const EditProduct: React.FC<EditProductForm> = ({
 
     const [updateProduct] = useMutation<UPDATE_PRODUCT_MUTATION_GEN, UPDATE_PRODUCT_MUTATIONVariables>(UPDATE_PRODUCT_MUTATION, {
         onError: (error) => {
-            console.log('error-UPDATE_PRODUCT_MUTATION:', error)
+            messageMutation({
+                variables: { msg: error.message, type: 'error' }
+            })
         },
         onCompleted: (data) => {
             messageMutation({

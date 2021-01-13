@@ -146,7 +146,7 @@ const LoginOrSignup: React.FC<Props> = ({ query, isAuthenticationError, pathname
         },
         onCompleted: () => {
             client.resetStore();
-            router.push('/');
+            window.location.href = '/'
         },
     });
     const [signup, { loading: isLoadingSignup }] = useMutation<SignupMutation, SignupMutationVariables>(
@@ -163,7 +163,8 @@ const LoginOrSignup: React.FC<Props> = ({ query, isAuthenticationError, pathname
                     variables: { msg: `Click the link in your email to verify your account`, type: 'success' }
                 })
                 client.resetStore();
-                router.push('/');
+                // router.push('/');
+                window.location.href = '/'
             },
         }
     );

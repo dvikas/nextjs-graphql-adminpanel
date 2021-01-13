@@ -132,12 +132,12 @@ const Category: React.FC = () => {
                                     messageMutation({
                                         variables: { msg: 'Updated successfully', type: 'success' }
                                     })
-                                    resolve();
+                                    resolve(true);
                                 }).catch(err => {
                                     messageMutation({
                                         variables: { msg: err.message, type: 'error' }
                                     })
-                                    resolve();
+                                    resolve(false);
                                 });
                             })
                             return dt
@@ -148,11 +148,12 @@ const Category: React.FC = () => {
                                 deleteUserMutation({
                                     variables: oldData
                                 }).then(data => {
-                                    resolve();
+                                    resolve(true);
                                 }).catch(err => {
                                     messageMutation({
                                         variables: { msg: err.message, type: 'error' }
                                     })
+                                    resolve(false);
                                 });
                             });
                             return dt;

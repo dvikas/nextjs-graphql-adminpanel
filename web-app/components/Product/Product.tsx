@@ -485,7 +485,7 @@ const Product: React.FC<Props> = ({ isPreview = false }) => {
                             Edit
             </Typography>
                         <Button autoFocus color="inherit" onClick={handleClose}>
-                            save
+                            close
             </Button>
                     </Toolbar>
                 </AppBar>

@@ -3,3 +3,5 @@ now.env*
 .next
 node_modules
 .env
+out
+.env.production
