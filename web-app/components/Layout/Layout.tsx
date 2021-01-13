@@ -257,8 +257,8 @@ const Layout: React.FC<Props> = ({ children, ...rest }) => {
           <Typography variant="h6" noWrap className={classes.pageTitle}>
             {heading(router.pathname)}
           </Typography>
-          <div style={{ paddingLeft: '20px' }}>
-            If you like this project and want to help, <strong>please give a star ⭐️on Github.</strong>
+          {/* <div style={{ paddingLeft: '20px' }}>
+            If you like this project and want to help, <strong>please give a star ⭐️on Github.</strong>&nbsp;&nbsp;&nbsp;
 
             <iframe src="https://ghbtns.com/github-btn.html?user=dvikas&repo=nextjs-graphql-adminpanel&type=star&count=true"
               style={{ border: 0 }}
@@ -266,7 +266,7 @@ const Layout: React.FC<Props> = ({ children, ...rest }) => {
             <iframe src="https://ghbtns.com/github-btn.html?user=dvikas&repo=nextjs-graphql-adminpanel&type=fork&count=true"
               style={{ border: 0 }}
               scrolling="0" width="90" height="20" title="GitHub"></iframe>
-          </div>
+          </div> */}
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
 
