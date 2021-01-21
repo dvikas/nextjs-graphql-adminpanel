@@ -1,4 +1,4 @@
-# NextJS/ GraphQL Admin Panel inspired by Material Theme 
+# NextJS/ GraphQL Admin Panel inspired by Material UI 
 
 #### Tech Stack Frontend
 * React(Next JS)
