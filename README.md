@@ -1,4 +1,4 @@
-# Boilerplate Project For NextJS Admin Panel
+# NextJS/ GraphQL Admin Panel inspired by Material Theme 
 
 #### Tech Stack Frontend
 * React(Next JS)
