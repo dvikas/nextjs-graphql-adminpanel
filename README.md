@@ -37,5 +37,9 @@ Please installed these VS Code extensions for syntax highlighting and auto-forma
 
 ![Categories](https://i.imgur.com/JWuO2Zt.png)<figcaption>Categories</figcaption>
 
-## Support
-Please create github issue for support.
+## Contributing
+Please share your opinion/ feedback for improvements! As you know it's open source project, don't hesitate to contribute your thoughts. Also, you can send email on vikas.nice@gmail.com.
+
+Feel free to create a PR for your chnages :)
+
+If you find it useful please add a **star** to this Repo! It helps a lot!
