@@ -40,4 +40,4 @@ Please installed these VS Code extensions for syntax highlighting and auto-forma
 ## Contributing
 Please share your opinion/ feedback for improvements! As you know it's open source project, don't hesitate to contribute your thoughts. Also, you can send email on vikas.nice@gmail.com.
 
-Feel free to create a PR for your chnages :)
+Feel free to create a PR for your changes :)
