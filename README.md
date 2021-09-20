@@ -4,6 +4,8 @@ If you like the repo, please add your <img src="https://user-images.githubuserco
 
 #### Demo
 https://app.buildergoals.com
+If this link is not working then please open https://buildergoals.com:4000/ and proceed with insecure (SSL certificate is expired)
+Then reopen the [demo link](https://app.buildergoals.com) it should work.
 
 #### Tech Stack Frontend
 * React(Next JS)
