@@ -25,6 +25,13 @@ Must use **yarn** in order to use *yarn.lock*. (Do not delete `yarn.lock`)
 * Open MYSQL and Create Database `next_graphql_admin`
 * Open Terminal in `api` Directory and use following commands
 * `yarn`
+
+   > If you aree getting error `The engine "node" is incompatible with this module. Expected version "12". Got "14.17.3"`
+
+   > `nvm use --delete-prefix v12.0`
+
+   > `nvm install v12.0`
+
 * `npx prisma migrate save --experimental`
 * `npx prisma migrate up --experimental` (It will create DB Tables)
 * `yarn seed` (it will create test user **admin@example.com / admin** in DB user table)
