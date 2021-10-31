@@ -44,6 +44,8 @@ Run the following commands to get started.
 ```bash
 yarn dev # Starts the local api server accessible at http://local.api.nextgraphqladmin.com:4000
 ```
+> **Note** Generate SSL certificate for your local https://local.api.nextgraphqladmin.com:4000/ to make it working. 
+   Please follow https://github.com/dvikas/nextjs-graphql-adminpanel/blob/main/api/GENERATE_SSL.md
 
 ### Dealing with Stripe subscriptions
 
