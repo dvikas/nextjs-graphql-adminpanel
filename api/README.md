@@ -19,6 +19,7 @@ Add the following line to your `/etc/hosts` file in order to alias your localhos
 127.0.0.1 local.api.nextgraphqladmin.com
 ```
 ### Install Instructions
+* Copy **.env.sample** and create **.env** file. Local environment variables are set in the .env file.
 
 Must use **yarn** in order to use *yarn.lock*. (Do not delete `yarn.lock`)
 
@@ -35,10 +36,6 @@ Must use **yarn** in order to use *yarn.lock*. (Do not delete `yarn.lock`)
 * `npx prisma migrate save --experimental`
 * `npx prisma migrate up --experimental` (It will create DB Tables)
 * `yarn seed` (it will create test user **admin@example.com / admin** in DB user table)
-
-### Environment variables
-
-Copy `.env.sample` and create `.env` file. Local environment variables are set in the `.env` file.
 
 ### Starting the server
 
