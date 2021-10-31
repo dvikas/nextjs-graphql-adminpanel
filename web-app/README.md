@@ -38,6 +38,9 @@ Local environment variables are configured in the `.env` file. Variables set for
 (Don't delete `yarn.lock` file. Install with `yarn`)
 ```bash
 yarn # Install all dependencies
+   > If you aree getting error The engine "node" is incompatible with this module. Expected version "12". Got "14.17.3"
+   > nvm use --delete-prefix v12.0
+   > nvm install v12.0
 yarn dev # Starts the development server at http://local.app.nextgraphqladmin.com:3000
 ```
 
