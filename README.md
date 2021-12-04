@@ -1,7 +1,6 @@
 # NextJS/ GraphQL Admin Panel inspired by Material UI 
 
 #### Demo
-https://app.buildergoals.com
 Because of SSL issue sometime demo link don't work. To fix that please open https://buildergoals.com:4000/ first and proceed with insecure (If SSL certificate is expired)
 Then reopen the [demo link](https://app.buildergoals.com) it should work now 👍😎.
 
