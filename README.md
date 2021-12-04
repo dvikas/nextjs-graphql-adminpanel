@@ -2,8 +2,8 @@
 
 #### Demo
 https://app.buildergoals.com
-If this link is not working then please open https://buildergoals.com:4000/ and proceed with insecure (SSL certificate is expired)
-Then reopen the [demo link](https://app.buildergoals.com) it should work.
+Because of SSL issue sometime demo link don't work. To fix that please open https://buildergoals.com:4000/ first and proceed with insecure (If SSL certificate is expired)
+Then reopen the [demo link](https://app.buildergoals.com) it should work now 👍😎.
 
 #### Tech Stack Frontend
 * React(Next JS)
